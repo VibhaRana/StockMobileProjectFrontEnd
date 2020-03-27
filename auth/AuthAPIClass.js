@@ -18,7 +18,7 @@ const DataAccessService = {
             "password":password,
             RemenberMe: false
         })
-        if (result.status == 200 && result.data.status == "OK") {
+        if (result.status == 200 && result.data.status == 200) {
             return {status:200,token:result.data.token};
         } else {
             return { status: 400 }
