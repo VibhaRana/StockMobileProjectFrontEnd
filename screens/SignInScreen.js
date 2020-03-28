@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     logo: {
         alignContent: 'center',
         padding: 40,
-        width: 100,
-        height: 100
+        width: 300,
+        height: 300
     },
     title: {
         color: '#FFF',
