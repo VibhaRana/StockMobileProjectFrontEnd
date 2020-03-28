@@ -7,8 +7,6 @@ import HomeScreen from "./screens/HomeScreen";
 import SignInScreen from "./screens/SignInScreen"
 import SignUpScreen from "./screens/SignUpScreen"
 import { AuthContext } from "./auth/authContext"
-import AuthAPI from "./auth/authAPI"
-import axios from "axios"
 import AuthAPI2 from "./auth/AuthAPIClass"
 
 const Stack = createStackNavigator();
