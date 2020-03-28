@@ -32,14 +32,15 @@ export default function SignInScreen({ navigation }) {
                 secureTextEntry
             />
 
-            <Button title="Sign in" onPress={() => this.props.navigation.navigate('WatchList')} />
-            <Button title="Sign up yp" onPress={() => navigation.navigate("SignUp")} />
+            <Button  title="Sign in" onPress={() => this.props.navigation.navigate('WatchList')} />
+            <Button  title="Sign up " onPress={() => navigation.navigate("SignUp")} />
         </View>
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
+        padding: 20,
         flex: 1,
         backgroundColor: '#009688',
     },
@@ -49,6 +50,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     logo: {
+        alignContent: 'center',
+        padding: 40,
         width: 100,
         height: 100
     },
@@ -61,7 +64,18 @@ const styles = StyleSheet.create({
     input: {
         height: 40,
         backgroundColor: 'rgba(255,255,255,0.7)',
-        marginBottom: 20,
-        color: 'rgba(255,255,255,0.7)'
-    }
+        marginBottom: 10,
+        color: 'rgba(255,255,255,0.7)',
+        paddingHorizontal: 10
+    },
+    // buttonContainer: {
+    //     backgroundColor: '#2980b9',
+    //     paddingVertical: 15
+
+    // },
+    // buttonText: {
+    //     textAlign: "center",
+    //     color: 'white',
+    //     fontWeight: '700'
+    // }
 });

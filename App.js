@@ -17,12 +17,7 @@ import * as Font from 'expo-font';
 import{ AppLoading } from 'expo';
 
 
-const fetchFonts = () => {
- return  Font.loadAsync({
-    'open-sans': require('./fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold': require('./fonts/OpenSans-Bold.ttf')
-  });
-}
+
 
 
 // export default function App(){
@@ -40,15 +35,6 @@ const fetchFonts = () => {
 
 
 const Stack = createStackNavigator();
-const [fontLoaded, setFontLoaded] = useState(false);
-
-  if (!fontLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setFontLoaded(true)}
-      />
-    );
 //context for sign in, sign up, restore method
 //export const AuthContext = React.createContext();
 
@@ -208,4 +194,3 @@ export default function App({ navigation }) {
   
 }
 
-      }
