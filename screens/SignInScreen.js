@@ -33,7 +33,7 @@ export default function SignInScreen({ navigation }) {
             />
 
             <Button  title="Sign in" onPress={() => this.props.navigation.navigate('WatchList')} />
-            <Button  title="Sign up " onPress={() => navigation.navigate("SignUp")} />
+            <Button  title="Click here to register " onPress={() => navigation.navigate("SignUp")} />
         </View>
         </View>
     )
