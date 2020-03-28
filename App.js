@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { AsyncStorage, Button, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, FlatList, SafeAreaView } from 'react-native'; 
+// import WatchList from './screens/WatchList';
+import Header from './components/Header';
+import { AsyncStorage, Button, TextInput, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from "./screens/SplashScreen";
@@ -11,11 +14,27 @@ import AuthAPI from "./auth/authAPI"
 import axios from "axios"
 import AuthAPI2 from "./auth/AuthAPIClass"
 
+
+// export default function App(){
+//   return (
+//     <View style={styles.screen}>
+//     <Header title = "Best Brokers" />
+//     </View>
+//   );
+// }
+// const styles = StyleSheet.create({
+//   screen: {
+//     flex: 1
+//   }
+// })
+
+
 const Stack = createStackNavigator();
 //context for sign in, sign up, restore method
 //export const AuthContext = React.createContext();
 
 export default function App({ navigation }) {
+
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -45,7 +64,7 @@ export default function App({ navigation }) {
       userToken: null,
     }
   );
-
+ 
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
@@ -165,5 +184,8 @@ export default function App({ navigation }) {
 
       </NavigationContainer>
     </AuthContext.Provider>
+    
   );
+  
 }
+
