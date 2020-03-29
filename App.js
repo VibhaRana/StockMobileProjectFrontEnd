@@ -9,7 +9,7 @@ import SignUpScreen from "./screens/SignUpScreen"
 import DetailScreen from "./screens/DetailsScreen";
 import { AuthContext } from "./auth/authContext"
 import AuthAPI2 from "./auth/AuthAPIClass"
-
+import DetailScreen from "./screens/DetailScreen"
 const Stack = createStackNavigator();
 //context for sign in, sign up, restore method
 //export const AuthContext = React.createContext();
@@ -55,9 +55,7 @@ export default function App({ navigation }) {
       } catch (e) {
         // Restoring token failed
       }
-
       // After restoring token, we may need to validate it in production apps
-
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
       dispatch({ type: 'RESTORE_TOKEN', token: userToken });
@@ -72,7 +70,7 @@ export default function App({ navigation }) {
         console.log(`user input username :${data.username}`)
         console.log("Sign In!!!!")
         var result = await AuthAPI2.login(data.username, data.password)
-        //console.log(result.)
+        //console.log(result)
         if (result.status == 200) {
           try {
             await AsyncStorage.setItem('userToken', result.token);
@@ -92,10 +90,10 @@ export default function App({ navigation }) {
       },
       signUp: async data => {
         console.log("Sign up!!!!")
-        var result = await AuthAPI2.SignUp(data.username, data.password,data.comfirmPassword)
+        var result = await AuthAPI2.SignUp(data.username, data.password, data.comfirmPassword)
         console.log("Im here!================")
-        /console.log(result)
-        if (result.status ==200) {
+        console.log(result)
+        if (result&&result.status ==200) {
           try {
             console.log("Im here!====before sign in")
             var loginResult = await AuthAPI2.login(data.username, data.password)
@@ -107,7 +105,7 @@ export default function App({ navigation }) {
               } catch (error) {
                 console.log("error found log in nooo00") // Error saving data
               }
-            }else{
+            } else {
               console.log("error found log in nooo")
             }
           } catch (error) {
@@ -119,7 +117,7 @@ export default function App({ navigation }) {
         // After getting token, we need to persist the token using `AsyncStorage`
         // In the example, we'll use a dummy token
 
-      //  dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+        //  dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
       },
     }),
     []
@@ -128,7 +126,6 @@ export default function App({ navigation }) {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-
         {state.isLoading ? (
           <Stack.Navigator>
             <Stack.Screen name="Splash" component={SplashScreen} />
@@ -161,7 +158,6 @@ export default function App({ navigation }) {
                 <Stack.Screen name="Detail" component={DetailScreen} />
               </Stack.Navigator>
             )}
-
       </NavigationContainer>
     </AuthContext.Provider>
   );
