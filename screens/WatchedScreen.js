@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, Modal, StyleSheet } from 'react-native';
 import AuthAPI from '../auth/AuthAPIClass';
 
-export default function WatchedScreen({navigation}) {
+export default function WatchedScreen({ navigation }) {
   const [watchlist, setWatchList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedStock, setSelectedStock] = useState({});
