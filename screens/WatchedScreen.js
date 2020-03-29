@@ -6,7 +6,7 @@ export default function WatchedScreen({ navigation }) {
   const [watchlist, setWatchList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedStock, setSelectedStock] = useState({});
-
+  let update=0
   useEffect(() => {
     const _retrieveData = async () => {
       try {
@@ -36,12 +36,15 @@ export default function WatchedScreen({ navigation }) {
       }
     } catch (error) {
       console.log(error);
+
     }
   }
 
   return (
     watchlist.length > 0 ?
       <View>
+
+
         <FlatList
           keyExtractor={item => item.symbol}
           data={watchlist}
