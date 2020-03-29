@@ -70,8 +70,8 @@ export default function PortfolioScreen() {
         yAxisSuffix=""
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: "#e26a00",
-          backgroundGradientFrom: "#fb8c00",
+          backgroundColor: "#1e88e5",
+          backgroundGradientFrom: "#1e88e5",
           backgroundGradientTo: "#ffa726",
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -82,13 +82,13 @@ export default function PortfolioScreen() {
           propsForDots: {
             r: "6",
             strokeWidth: "2",
-            stroke: "#ffa726"
+            stroke: "#0d47a1"
           }
         }}
         bezier
         style={{
           marginVertical: 8,
-          borderRadius: 16
+          borderRadius: 0
         }}
       />:<Text>not enough data for graph</Text>}
       <Text>Signed in! YO: </Text>

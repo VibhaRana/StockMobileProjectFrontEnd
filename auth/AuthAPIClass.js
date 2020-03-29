@@ -163,7 +163,8 @@ const DataAccessService = {
         } else {
             return { status: response.status, detail: response.data.detail };
         }
-    }
+    },
+    
 
 };
 
