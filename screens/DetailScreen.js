@@ -6,6 +6,7 @@ import AuthAPIClass from '../auth/AuthAPIClass';
 
 export default function DetailScreen({ navigation, route}) {
     const { data } = route.params
+    const [countInput, setCountInput] = useState(0);
     const [price, setPrice] = useState({
         open: "",
         high: "",
@@ -19,15 +20,12 @@ export default function DetailScreen({ navigation, route}) {
         shareOutstanding: "",
         description: ""
     });
-    const [message, setMessage] = useState("");
-    const [countInput, setCountInput] = useState(0);
     const [response, setResponse] = useState({
-      status: 0,
       detail: "",
-      currentCash: 0,
-      remaining: 0
+      currentCash: "",
+      remaining: 0,
+      totalPurchased: 0
     });
-
     useEffect(() => {
         const getQuoteData = async () => {
             const quote = await FinnhubAPI.getQuote(data);
@@ -48,7 +46,6 @@ export default function DetailScreen({ navigation, route}) {
         };
         getQuoteData();
     }, []);
-
     async function callBuy(symbol, count, price) {
         let boughtData = await AuthAPIClass.buy(symbol, count, price)
         setResponse(boughtData);
@@ -56,11 +53,9 @@ export default function DetailScreen({ navigation, route}) {
         console.log(boughtData.status);
         console.log(boughtData.detail);
         console.log(boughtData.currentCash);
-        console.log(boughtData.remaining);
+        console.log(boughtData.totalPurchased);
         console.log('end callbuy test');
-        setMessage(boughtData.detail);
     };
-
     async function callSell(symbol, count, price) {
         let soldData = await AuthAPIClass.sell(symbol, count, price)
         setResponse(soldData);
@@ -70,9 +65,8 @@ export default function DetailScreen({ navigation, route}) {
         console.log(soldData.currentCash);
         console.log(soldData.remaining);
         console.log('end callsell test');
-        setMessage(soldData.detail);
     };
-
+    
     return (
         <View>
             <Text>Symbol: {data}</Text>
@@ -86,7 +80,6 @@ export default function DetailScreen({ navigation, route}) {
               value = {countInput}
               keyboardType = {'numeric'}
             />
-            <Text>TEST {countInput}</Text>
             <Button 
                 title="Buy"
                 onPress={() => callBuy(data, countInput, price.currentPrice)}
@@ -99,7 +92,10 @@ export default function DetailScreen({ navigation, route}) {
                 title="Watch"
                 onPress={() => { console.log("Watch")}}
             />
-            <Text>{message}</Text>
+            <Text>{(response.detail != "") ? response.detail : "" }</Text>
+            <Text>{(response.remaining != "" && response.remaining != null) ? "You have " + response.remaining + " stocks remaining." : "" }</Text>
+            <Text>{(response.totalPurchased != "" && response.totalPurchased != null) ? "You currently have " + response.totalPurchased + " stocks purchased." : "" }</Text>
+            <Text>{(response.currentCash != "" && response.currentCash != null) ? "Your current cash amount is: $" + response.currentCash : "" }</Text>
         </View>
     );
 }
