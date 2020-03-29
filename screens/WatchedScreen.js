@@ -23,7 +23,6 @@ export default function WatchedScreen({navigation}) {
 
     const unsubscribe = navigation.addListener('focus', () => {
       _retrieveData();
-      console.log(1);
     });
     return unsubscribe;
   }, [navigation]);

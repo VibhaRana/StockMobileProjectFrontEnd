@@ -8,7 +8,7 @@ import SignInScreen from "./screens/SignInScreen"
 import SignUpScreen from "./screens/SignUpScreen"
 import { AuthContext } from "./auth/authContext"
 import AuthAPI2 from "./auth/AuthAPIClass"
-
+import DetailScreen from "./screens/DetailScreen"
 const Stack = createStackNavigator();
 //context for sign in, sign up, restore method
 //export const AuthContext = React.createContext();
@@ -91,8 +91,8 @@ export default function App({ navigation }) {
         console.log("Sign up!!!!")
         var result = await AuthAPI2.SignUp(data.username, data.password, data.comfirmPassword)
         console.log("Im here!================")
-          / console.log(result)
-        if (result.status == 200) {
+        console.log(result)
+        if (result&&result.status ==200) {
           try {
             console.log("Im here!====before sign in")
             var loginResult = await AuthAPI2.login(data.username, data.password)
@@ -154,6 +154,7 @@ export default function App({ navigation }) {
         ) : (
               <Stack.Navigator>
                 <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Detail" component={DetailScreen} />
               </Stack.Navigator>
             )}
       </NavigationContainer>
