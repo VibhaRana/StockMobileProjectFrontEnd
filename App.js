@@ -93,8 +93,8 @@ export default function App({ navigation }) {
         console.log("Sign up!!!!")
         var result = await AuthAPI2.SignUp(data.username, data.password,data.comfirmPassword)
         console.log("Im here!================")
-        /console.log(result)
-        if (result.status ==200) {
+        console.log(result)
+        if (result&&result.status ==200) {
           try {
             console.log("Im here!====before sign in")
             var loginResult = await AuthAPI2.login(data.username, data.password)
