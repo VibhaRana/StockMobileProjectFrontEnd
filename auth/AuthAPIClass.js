@@ -9,8 +9,8 @@ const DataAccessService = {
     async login(username, password) {
         if (username == null || username.length < 3) {
             console.log("using test account")
-            username = "test@test.com"
-            password = "P@ssw0rd"
+            username = "a@a.com"
+            password = "P@ssw0rd!"
         }
         var result = await instance.post('api/login', {
             "email": username,
@@ -18,6 +18,7 @@ const DataAccessService = {
             RemenberMe: false
         })
         if (result.status == 200 && result.data.status == 200) {
+            console.log(result.data.token);
             return { status: 200, token: result.data.token };
         } else {
             return { status: 400 }
@@ -82,7 +83,7 @@ const DataAccessService = {
         console.log(result)
         return result
     },
-    async WatchList() {
+    async getWatchList() {
         let token = await AsyncStorage.getItem('userToken');
         let response = await instance.get('api/watched', {
             headers: {
@@ -94,10 +95,30 @@ const DataAccessService = {
 
         if (response.status == 200) {
             return { status: 200, stocks: response.data.stocks };
-        } else if (response.status == 404) {
-            return { status: 404, detail: response.data.detail };
         } else {
-            return { status: 400, detail: 'Bad request.' };
+            return { status: response.status, detail: response.data.detail };
+        }
+    },
+    async setWatch(symbol, isWatch) {
+        let token = await AsyncStorage.getItem('userToken');
+        console.log(token);
+        console.log(symbol, isWatch);
+        let response = await instance.put('api/watch', {
+            params: {
+                'Symbol': symbol,
+                'IsWatch': isWatch
+            },
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.status == 200) {
+            return { status: 200 };
+        } else {
+            return { status: response.status, detail: response.data.detail };
         }
     }
 };
