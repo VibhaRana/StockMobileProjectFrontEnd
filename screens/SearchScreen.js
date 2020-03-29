@@ -6,9 +6,12 @@ export default function SearchScreen({navigation}) {
   const [query,setQuery]  = React.useState("") 
   const [stockData,setStocksData]= React.useState() 
   const [candidateFilms,setCandidateFilms]=React.useState() 
-  React.useEffect(async()=>{
-    let candidate=await FinnhubAPI.getCandidate()
+  React.useEffect(()=>{
+    const start =async()=>{
+      let candidate=await FinnhubAPI.getCandidate()
     setStocksData(candidate)
+    }
+    start()
 
   },[])
   function findStock(userQuery){
