@@ -3,15 +3,15 @@ import { AsyncStorage } from 'react-native';
 
 
 var instance = axios.create({
-    baseURL: 'http://192.168.1.100:5000/'
+    baseURL: 'http://192.168.12.107:5000/'
 });
 
 const DataAccessService = {
     async login(username, password) {
         if(username==null||username.length<3){
             console.log("using test account")
-            username="xxx@email.com"
-            password= "P@ssw0rd!"
+            username="test@test.com"
+            password= "P@ssw0rd"
         }
         var result = await instance.post('api/login', {
             "email": username,
