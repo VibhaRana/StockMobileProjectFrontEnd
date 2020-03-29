@@ -126,11 +126,13 @@ const DataAccessService = {
             if (token != null) {
                 token = `Bearer ${token}`
                 console.log( token)
-                let result = await instance.post("api/Performance",{
+                let result = await instance.post("api/Performance",
+                {
                     "startDate": "2020-03-28T21:35:55.8984115",
                     "cash": 1000000.0,
-                    "performance": "12322,12332,33223232"
-                }, {
+                    "performance": "12322,13233,22321,12344,32211"
+                }, 
+                {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',

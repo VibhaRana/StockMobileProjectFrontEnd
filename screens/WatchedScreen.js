@@ -6,7 +6,7 @@ export default function WatchedScreen() {
   const [watchlist, setWatchList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedStock, setSelectedStock] = useState({});
-
+  let update=0
   useEffect(() => {
     const _retrieveData = async () => {
       let response = await AuthAPI.getWatchList();
@@ -17,20 +17,28 @@ export default function WatchedScreen() {
       }
     }
     _retrieveData();
-  }, []);
+    console.log("Here")
+  }, [update]);
 
   const unWatch = async (symbol) => {
+    console.log("removeing: "+symbol)
     let response = await AuthAPI.setWatch(symbol, false);
     if (response.status == 200) {
-      setWatchList(watchlist.filter(stock => stock.symbol == symbol));
+      console.log("success remove the list")
+      let list=watchlist.filter(stock => stock.symbol != symbol)
+      setWatchList([...list]);
       setSelectedStock({});
+    }else{
+      console.log("unsuccess remove the list")
+      
     }
   }
 
   return (
     watchlist.length > 0 ?
       <View>
-        
+        <Button title="add" onPress={()=>{setWatchList([{symbol:"ABC"},{symbol:"ABCd"}])}}></Button>
+        <Button title="add" onPress={()=>{setWatchList([{symbol:"ABC"}])}}></Button>
         <FlatList
           keyExtractor={item => item.symbol}
           data={watchlist}
