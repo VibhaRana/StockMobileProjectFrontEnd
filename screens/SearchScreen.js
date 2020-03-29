@@ -24,8 +24,8 @@ export default function SearchScreen({navigation}) {
   return (
     <View>
       <Text>Search Screen</Text>
-      <Button onPress={()=>{FinnhubAPI.getQuote("Asdfsfsdf")}} title="search"></Button>
-      <Button onPress={()=>{navigation.navigate("Detail",{title:"yoho",data:"this is data"})}} title="Naviget to detail"></Button>
+      <Button onPress={()=>{FinnhubAPI.getQuote("AAPL")}} title="search"></Button>
+      <Button onPress={()=>{navigation.navigate("Detail",{title:"yoho",data:"AAPL"})}} title="Navigate to detail"></Button>
       <Autocomplete
         autoCapitalize="none"
         autoCorrect={false}

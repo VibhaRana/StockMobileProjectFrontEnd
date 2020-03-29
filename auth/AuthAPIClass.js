@@ -164,17 +164,16 @@ const DataAccessService = {
         console.log(result)
         return result
     },
-    async buy(symbol) {
+    async buy(symbol, count, currentPrice) {
         console.log("Inside buy context");
-        console.log(symbol);
         try {
             let token = await AsyncStorage.getItem("userToken")
             if (token != null) {
                 token = `Bearer ${token}`
                 let data = {
                     "Symbol": symbol,
-                    "Count": 200,
-                    "CurrentPrice": 100
+                    "Count": count,
+                    "CurrentPrice": currentPrice
                 };
                 let result = await instance.put("api/buy", data , {
                     headers: {
@@ -185,13 +184,16 @@ const DataAccessService = {
                 }).catch((e) => {
                     return e.response
                 })
+                console.log("start buy");
+                console.log(result.data);
+                console.log('end buy');
                 return result.data
             }
         } catch (e) {
         }
         return "error!!!!!!"
     },
-    async sell(symbol) {
+    async sell(symbol, count, currentPrice) {
         console.log("Inside sell context");
         try {
             let token = await AsyncStorage.getItem("userToken")
@@ -199,8 +201,8 @@ const DataAccessService = {
                 token = `Bearer ${token}`
                 let data = {
                     "Symbol": symbol,
-                    "Count": 200,
-                    "CurrentPrice": 100
+                    "Count": count,
+                    "CurrentPrice": currentPrice
                 };
                 let result = await instance.put("api/sell", data , {
                     headers: {
@@ -211,6 +213,9 @@ const DataAccessService = {
                 }).catch((e) => {
                     return e.response
                 })
+                console.log("start buy");
+                console.log(result.data);
+                console.log('end buy');
                 return result.data
             }
         } catch (e) {
