@@ -31,40 +31,13 @@ const DataAccessService = {
     setToken(token) {
         instance.defaultConfig.headers.Authorization = `Bearer ${token}` // return _request('DELETE', url);
     },
-    // async getTestData() {
-    //     try {
-    //         let token = await AsyncStorage.getItem("userToken")
-    //         if (token != null) {
-    //             token = `Bearer ${token}`
-    //             let result = await instance.get("api/login/list", {
-    //                 headers: {
-    //                     'Accept': 'application/json',
-    //                     'Content-Type': 'application/json',
-    //                     'Authorization': token
-    //                 }
-    //             }).catch((e) => {
-    //                 console.log(e.response.data)
-    //                 console.log(e.response.headers)
-    //                 console.log(e.response.status)
-    //                 return e.response.headers
-    //             })
-    //             console.log("=======================================")
-    //             console.log(result.data)
-    //             return result
-    //         }
-    //     } catch (e) {
-
-    //     }
-    //     return "error!!!!!!"
-    // },
     async SignUp(username, password, comfirmPassword) {
         console.log("Sign up!!!!")
-        // let result = await 
-        if(username==null||username.length<3){
+        if (username == null || username.length < 3) {
             console.log("using test account")
-            username="test1@test.com"
-            password= "P@ssw0rd"
-            comfirmPassword= "P@ssw0rd"
+            username = "test1@test.com"
+            password = "P@ssw0rd"
+            comfirmPassword = "P@ssw0rd"
         }
         var result = await instance.post('api/register', {
             "email": username,
@@ -89,7 +62,7 @@ const DataAccessService = {
         console.log(result)
         return result
     },
-    async getPerformance(){
+    async getPerformance() {
         try {
             let token = await AsyncStorage.getItem("userToken")
             if (token != null) {
@@ -117,13 +90,13 @@ const DataAccessService = {
         }
         return "error!!!!!!"
     },
-    async postPerformance(){
+    async postPerformance() {
         try {
             let token = await AsyncStorage.getItem("userToken")
             if (token != null) {
                 token = `Bearer ${token}`
-                console.log( token)
-                let result = await instance.post("api/Performance",{
+                console.log(token)
+                let result = await instance.post("api/Performance", {
                     "startDate": "2020-03-28T21:35:55.8984115",
                     "cash": 1000000.0,
                     "performance": "12322,12332,33223232"
@@ -187,7 +160,7 @@ const DataAccessService = {
             return { status: response.status, detail: response.data.detail };
         }
     }
-    
+
 };
 
 export default DataAccessService;
