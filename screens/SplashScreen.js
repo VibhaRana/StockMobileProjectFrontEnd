@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 // import { withNavigation } from 'react-navigation';
 import { AsyncStorage, Button, Text, StyleSheet,  TextInput, View } from 'react-native';
 export default function SplashScreen() {

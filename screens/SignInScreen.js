@@ -33,8 +33,9 @@ export default function SignInScreen({ navigation }) {
                 secureTextEntry
             />
 
-            <Button  title="Sign in" onPress={() => this.props.navigation.navigate('username, password')} />
-            <Button  title="Click here to register " onPress={() => navigation.navigate("SignUp")} />
+            <Button title="Sign in" onPress={() => signIn({ username, password })} />
+            <Button title="Click here to register" onPress={() =>navigation.navigate("SignUp")} />
+            
         </View>
         </View>
     )
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         padding: 40,
         width: 300,
-        height: 300
+        height: 300,
+       
     },
     title: {
         color: '#FFF',
@@ -69,14 +71,5 @@ const styles = StyleSheet.create({
         color: 'rgba(255,255,255,0.7)',
         paddingHorizontal: 10
     },
-    // buttonContainer: {
-    //     backgroundColor: '#2980b9',
-    //     paddingVertical: 15
-
-    // },
-    // buttonText: {
-    //     textAlign: "center",
-    //     color: 'white',
-    //     fontWeight: '700'
-    // }
+   
 });

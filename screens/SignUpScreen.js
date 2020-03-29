@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { AsyncStorage, TouchableOpacity, Text, TextInput, View, StyleSheet } from 'react-native';
 import {AuthContext} from "../auth/authContext"
+import { getCurrentFrame } from 'expo/build/AR';
 
 export default function SignUpScreen() {
     const [username, setUsername] = React.useState('');
@@ -11,6 +12,7 @@ export default function SignUpScreen() {
     return (
       
       <View style={styles.container}>
+      <Text style={styles.title}>Welcome to Best Brokers</Text>
         <TextInput
         style={styles.input}
         underlineColorAndroid='rgba(0,0,0,0)'
@@ -34,7 +36,7 @@ export default function SignUpScreen() {
           onChangeText={setComfirmPassword}
           secureTextEntry
         />
-       
+        <TouchableOpacity title="Sign up" onPress={() => signUp({ username, password,comfirmPassword })} />
          <TouchableOpacity style={styles.button}>
          <Text style={styles.buttonText}>SignUp</Text>
          </TouchableOpacity>
@@ -46,7 +48,9 @@ export default function SignUpScreen() {
        backgroundColor: '#009688',
        flex: 1,
        alignItems: 'center',
-       justifyContent: 'center'
+       justifyContent: 'center',
+       
+     
      },
      input:{
        width: 300,
@@ -54,14 +58,16 @@ export default function SignUpScreen() {
        borderRadius: 25,
        paddingHorizontal: 19,
        paddingVertical: 12,
-       marginVertical: 10
+       marginVertical: 10,
+       
      },
      button: {
        width:300,
        backgroundColor: '#fc5c65',
        borderRadius: 25,
        marginVertical: 10,
-       paddingVertical: 12
+       paddingVertical: 12,
+       shadowColor: 'black'
      },
      buttonText: {
        fontSize: 16,
@@ -70,6 +76,15 @@ export default function SignUpScreen() {
        marginVertical: 10,
        textAlign: 'center'
      },
+     title:{
+       color: 'white',
+       fontWeight: 'bold',
+       fontSize: 20,
+       shadowColor: 'black',
+       elevation: 5
+     }
+    
+    
      
 
 
