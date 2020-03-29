@@ -13,7 +13,7 @@ import { AuthContext } from "./auth/authContext"
 import AuthAPI from "./auth/authAPI"
 import axios from "axios"
 import AuthAPI2 from "./auth/AuthAPIClass"
-import * as Font from 'expo-font';
+
 import{ AppLoading } from 'expo';
 
 
