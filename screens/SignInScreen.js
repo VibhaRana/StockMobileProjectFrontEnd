@@ -6,6 +6,7 @@ export default function SignInScreen({ navigation }) {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const { signIn, signUp } = React.useContext(AuthContext);
+    
     return (
         <View style={styles.container}>
         <View >
@@ -32,7 +33,7 @@ export default function SignInScreen({ navigation }) {
                 secureTextEntry
             />
 
-            <Button  title="Sign in" onPress={() => this.props.navigation.navigate('WatchList')} />
+            <Button  title="Sign in" onPress={() => this.props.navigation.navigate('username, password')} />
             <Button  title="Click here to register " onPress={() => navigation.navigate("SignUp")} />
         </View>
         </View>
