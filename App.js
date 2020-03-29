@@ -6,6 +6,7 @@ import SplashScreen from "./screens/SplashScreen";
 import HomeScreen from "./screens/HomeScreen";
 import SignInScreen from "./screens/SignInScreen"
 import SignUpScreen from "./screens/SignUpScreen"
+import DetailScreen from "./screens/DetailsScreen";
 import { AuthContext } from "./auth/authContext"
 import AuthAPI2 from "./auth/AuthAPIClass"
 
@@ -156,8 +157,8 @@ export default function App({ navigation }) {
           </Stack.Navigator>
         ) : (
               <Stack.Navigator>
-
                 <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Detail" component={DetailScreen} />
               </Stack.Navigator>
             )}
 

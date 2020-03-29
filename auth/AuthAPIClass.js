@@ -3,15 +3,15 @@ import { AsyncStorage } from 'react-native';
 
 
 var instance = axios.create({
-    baseURL: 'http://192.168.12.107:5000/'
+    baseURL: 'http://10.0.0.202:5000/'
 });
 
 const DataAccessService = {
     async login(username, password) {
         if(username==null||username.length<3){
             console.log("using test account")
-            username="test@test.com"
-            password= "P@ssw0rd"
+            username= "a@a.com"
+            password= "P@ssw0rd!"
         }
         var result = await instance.post('api/login', {
             "email": username,
@@ -23,7 +23,6 @@ const DataAccessService = {
         } else {
             return { status: 400 }
         }
-
     },
     instance() {
         return instance
@@ -84,6 +83,59 @@ const DataAccessService = {
         console.log("=======final=======")
         console.log(result)
         return result
+    },
+    async buy(symbol) {
+        console.log("Inside buy context");
+        console.log(symbol);
+        try {
+            let token = await AsyncStorage.getItem("userToken")
+            if (token != null) {
+                token = `Bearer ${token}`
+                let data = {
+                    "Symbol": symbol,
+                    "Count": 200,
+                    "CurrentPrice": 100
+                };
+                let result = await instance.put("api/buy", data , {
+                    headers: {
+                        'Accept': '*',
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    }
+                }).catch((e) => {
+                    return e.response
+                })
+                return result.data
+            }
+        } catch (e) {
+        }
+        return "error!!!!!!"
+    },
+    async sell(symbol) {
+        console.log("Inside sell context");
+        try {
+            let token = await AsyncStorage.getItem("userToken")
+            if (token != null) {
+                token = `Bearer ${token}`
+                let data = {
+                    "Symbol": symbol,
+                    "Count": 200,
+                    "CurrentPrice": 100
+                };
+                let result = await instance.put("api/sell", data , {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    }
+                }).catch((e) => {
+                    return e.response
+                })
+                return result.data
+            }
+        } catch (e) {
+        }
+        return "error!!!!!!"
     }
 };
 
