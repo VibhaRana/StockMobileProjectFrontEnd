@@ -101,19 +101,18 @@ const DataAccessService = {
     },
     async setWatch(symbol, isWatch) {
         let token = await AsyncStorage.getItem('userToken');
-        console.log(token);
-        console.log(symbol, isWatch);
-        let response = await instance.put('api/watch', {
-            params: {
+        let response = await instance.put('api/watch',
+            {
                 'Symbol': symbol,
                 'IsWatch': isWatch
             },
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
         if (response.status == 200) {
             return { status: 200 };
