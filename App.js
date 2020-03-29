@@ -8,7 +8,7 @@ import SignInScreen from "./screens/SignInScreen"
 import SignUpScreen from "./screens/SignUpScreen"
 import { AuthContext } from "./auth/authContext"
 import AuthAPI2 from "./auth/AuthAPIClass"
-
+import DetailScreen from "./screens/DetailScreen"
 const Stack = createStackNavigator();
 //context for sign in, sign up, restore method
 //export const AuthContext = React.createContext();
@@ -158,6 +158,7 @@ export default function App({ navigation }) {
               <Stack.Navigator>
 
                 <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Detail" component={DetailScreen} />
               </Stack.Navigator>
             )}
 
