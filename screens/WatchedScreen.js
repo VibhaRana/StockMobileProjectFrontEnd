@@ -2,35 +2,46 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, Modal, StyleSheet } from 'react-native';
 import AuthAPI from '../auth/AuthAPIClass';
 
-export default function WatchedScreen() {
+export default function WatchedScreen({navigation}) {
   const [watchlist, setWatchList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedStock, setSelectedStock] = useState({});
 
   useEffect(() => {
     const _retrieveData = async () => {
-      let response = await AuthAPI.getWatchList();
-      if (response.status == 200) {
-        setWatchList(response.stocks);
-      } else {
-        console.log(response.detail);
+      try {
+        let response = await AuthAPI.getWatchList();
+        if (response.status == 200) {
+          setWatchList(response.stocks);
+        } else {
+          console.log(response.detail);
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
-    _retrieveData();
-  }, []);
+
+    const unsubscribe = navigation.addListener('focus', () => {
+      _retrieveData();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const unWatch = async (symbol) => {
-    let response = await AuthAPI.setWatch(symbol, false);
-    if (response.status == 200) {
-      setWatchList(watchlist.filter(stock => stock.symbol == symbol));
-      setSelectedStock({});
+    try {
+      let response = await AuthAPI.setWatch(symbol, false);
+      if (response.status == 200) {
+        setWatchList(watchlist.filter(stock => stock.symbol != symbol));
+        setSelectedStock({});
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
   return (
     watchlist.length > 0 ?
       <View>
-        
         <FlatList
           keyExtractor={item => item.symbol}
           data={watchlist}
@@ -63,7 +74,6 @@ export default function WatchedScreen() {
         </Modal>
       </View> :
       <View>
-        <Button title="add dummy" onPress={()=>{AuthAPI.setWatch("AAPL",true)}}></Button>
         <Text>No watchlist</Text>
       </View>
   );
