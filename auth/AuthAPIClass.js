@@ -9,8 +9,8 @@ const DataAccessService = {
     async login(username, password) {
         if (username == null || username.length < 3) {
             console.log("using test account")
-            username= "a@a.com"
-            password= "P@ssw0rd!"
+            username= "test1@test.com"
+            password= "P@ssw0rd"
         }
         var result = await instance.post('api/login', {
             "email": username,
