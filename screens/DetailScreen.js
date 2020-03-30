@@ -3,10 +3,11 @@ import { View, Text, Button, TextInput } from 'react-native';
 import FinnhubAPI from "../auth/Finnhub";
 import Autocomplete from 'react-native-autocomplete-input';
 import AuthAPIClass from '../auth/AuthAPIClass';
+import NumberFormat from 'react-number-format';
 
 export default function DetailScreen({ navigation, route}) {
     const { data } = route.params
-    const [countInput, setCountInput] = useState(0);
+    const [countInput, setCountInput] = useState("");
     const [price, setPrice] = useState({
         open: "",
         high: "",
@@ -39,8 +40,8 @@ export default function DetailScreen({ navigation, route}) {
             });
             setProfile({
                 name: tempProfile.name,
-                marketCapitalization: tempProfile.marketCapitalization,
-                shareOutstanding: tempProfile.shareOutstanding,
+                marketCapitalization: (tempProfile.marketCapitalization * 1000000),
+                shareOutstanding: (tempProfile.shareOutstanding * 1000000),
                 description: tempProfile.description
             });
         };
@@ -60,8 +61,22 @@ export default function DetailScreen({ navigation, route}) {
         <View>
             <Text>Name: {profile.name}</Text>
             <Text>Symbol: {data}</Text>
-            <Text>Market Capitalization: {profile.marketCapitalization}</Text>
-            <Text>Shares Outstanding: {profile.shareOutstanding}</Text>
+            <Text>
+                Market Capitalization:{' '}
+                <NumberFormat 
+                    value={profile.marketCapitalization} 
+                    displayType={'text'} 
+                    thousandSeparator={true}
+                />
+            </Text>
+            <Text>
+                Shares Outstanding:{' '}
+                <NumberFormat 
+                    value={profile.shareOutstanding} 
+                    displayType={'text'} 
+                    thousandSeparator={true}
+                />
+            </Text>
             <Text>{profile.description}</Text>  
             <Text>Current Price: ${price.currentPrice}</Text>
             <Text>Open Price: ${price.open}</Text>
@@ -69,9 +84,10 @@ export default function DetailScreen({ navigation, route}) {
             <Text>Low Price: ${price.low}</Text>
             <Text>Previous Close Price: ${price.previousClose}</Text>
             <TextInput 
-              onChangeText = {(text)=> setCountInput(text)}
-              value = {countInput}
-              keyboardType = {'numeric'}
+                placeholder = {"Enter quantity here"}
+                onChangeText = {(text)=> setCountInput(text)}
+                value = {countInput}
+                keyboardType = {'numeric'}
             />
             <Button 
                 title="Buy"
