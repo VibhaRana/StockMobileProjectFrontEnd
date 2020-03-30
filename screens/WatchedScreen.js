@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, Modal, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Button, Modal, StyleSheet, TouchableOpacity } from 'react-native';
 import AuthAPI from '../auth/AuthAPIClass';
 
 export default function WatchedScreen({ navigation }) {
   const [watchlist, setWatchList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedStock, setSelectedStock] = useState({});
-  let update=0
+
   useEffect(() => {
     const _retrieveData = async () => {
       try {
@@ -43,17 +43,15 @@ export default function WatchedScreen({ navigation }) {
   return (
     watchlist.length > 0 ?
       <View>
-
-
         <FlatList
           keyExtractor={item => item.symbol}
           data={watchlist}
           renderItem={({ item }) => {
             return (
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => navigation.navigate('Detail', { data: item.symbol })}>
                 <Text>{item.symbol}</Text>
-                <Button title="Remove" color="red" onPress={() => { setModalVisible(true); setSelectedStock(item); }} />
-              </View>
+                <Button title='Remove' color="red" onPress={() => { setModalVisible(true); setSelectedStock(item); }} />
+              </TouchableOpacity>
             );
           }} />
         <Modal
