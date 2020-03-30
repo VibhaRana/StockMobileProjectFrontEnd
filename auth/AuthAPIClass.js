@@ -2,7 +2,7 @@ import axios from "axios"
 import { AsyncStorage } from 'react-native';
 
 var instance = axios.create({
-    baseURL: 'http://10.0.0.217:5000/'
+    baseURL: 'http://192.168.1.100:5000/'
 });
 
 const DataAccessService = {
@@ -169,7 +169,12 @@ const DataAccessService = {
         return result
     },
     async buy(symbol, count, currentPrice) {
-        console.log("Inside buy context");
+        if (count == "") {
+            return {
+                status: 400,
+                detail: "Please check the quantity that you want to trade."
+            }
+        }
         try {
             let token = await AsyncStorage.getItem("userToken")
             if (token != null) {
@@ -188,9 +193,6 @@ const DataAccessService = {
                 }).catch((e) => {
                     return e.response
                 })
-                console.log("start buy");
-                console.log(result.data);
-                console.log('end buy');
                 return result.data
             }
         } catch (e) {
@@ -198,7 +200,12 @@ const DataAccessService = {
         return "error!!!!!!"
     },
     async sell(symbol, count, currentPrice) {
-        console.log("Inside sell context");
+        if (count == "") {
+            return {
+                status: 400,
+                detail: "Please check the quantity that you want to trade."
+            }
+        }
         try {
             let token = await AsyncStorage.getItem("userToken")
             if (token != null) {
@@ -217,9 +224,6 @@ const DataAccessService = {
                 }).catch((e) => {
                     return e.response
                 })
-                console.log("start buy");
-                console.log(result.data);
-                console.log('end buy');
                 return result.data
             }
         } catch (e) {
@@ -240,13 +244,30 @@ const DataAccessService = {
                     'Authorization': `Bearer ${token}`
                 }
             });
-
         if (response.status == 200) {
             return { status: 200 };
         } else {
             return { status: response.status, detail: response.data.detail };
         }
+    },
+    async getPurchases(){
+        let token = await AsyncStorage.getItem('userToken');
+        let response = await instance.get('api/purchased', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+         console.log(response)
+        if (response.status == 200) {
+            return { status: 200, stocks: response.data.stocks };
+        } else {
+            return { status: response.status, detail: response.data.detail };
+        }
     }
+    
+
 };
 
 export default DataAccessService;

@@ -13,7 +13,7 @@ import { AuthContext } from "./auth/authContext"
 import AuthAPI2 from "./auth/AuthAPIClass"
 
 
-import{ AppLoading } from 'expo';
+// import{ AppLoading } from 'expo';
 
 
 
