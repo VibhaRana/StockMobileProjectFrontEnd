@@ -14,7 +14,6 @@ const DataAccessService = {
                 symbol:user_symbol
             }
         })
-        console.log(result)
         if(result.status!=200){
             return{error:"API call error"}
         }
@@ -23,7 +22,6 @@ const DataAccessService = {
         }else{
             return result.data
         }
-
     },
     async getCandidate(){
         console.log("fetch API candidate")
@@ -45,6 +43,22 @@ const DataAccessService = {
         })
         console.log(output)
         return output
+    },
+    async getProfile(user_symbol) {
+        let result = await instance.get("stock/profile",{
+            params:{
+                token:API_KEY,
+                symbol:user_symbol
+            }
+        })
+        if(result.status!=200){
+            return{error:"API call error"}
+        }
+        if(result.data=="Symbol not supported"){
+            return{error:"Symbol not supported"}
+        }else{
+            return result.data
+        }
     }
 }
 
