@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, Text, Button, TextInput } from 'react-native';
 import FinnhubAPI from "../auth/Finnhub";
-import Autocomplete from 'react-native-autocomplete-input';
 import AuthAPIClass from '../auth/AuthAPIClass';
+import NumberFormat from 'react-number-format';
 
-export default function DetailScreen({ navigation, route}) {
+export default function DetailScreen({ route }) {
     const { data } = route.params
+    const [countInput, setCountInput] = useState("");
     const [price, setPrice] = useState({
         open: "",
         high: "",
@@ -19,74 +20,80 @@ export default function DetailScreen({ navigation, route}) {
         shareOutstanding: "",
         description: ""
     });
-    const [message, setMessage] = useState("");
-    const [countInput, setCountInput] = useState(0);
     const [response, setResponse] = useState({
-      status: 0,
       detail: "",
-      currentCash: 0,
-      remaining: 0
+      currentCash: "",
+      remaining: 0,
+      totalPurchased: 0
     });
-
     useEffect(() => {
-        const getQuoteData = async () => {
-            const quote = await FinnhubAPI.getQuote(data);
-            //const profile = await FinnhubAPI.getProfile(data);
+        const getData = async () => {
+            const tempQuote = await FinnhubAPI.getQuote(data);
+            const tempProfile = await FinnhubAPI.getProfile(data);
             setPrice({
-                open: quote.o,
-                high: quote.h,
-                low: quote.l,
-                currentPrice: quote.c,
-                previousClose: quote.pc
+                open: tempQuote.o,
+                high: tempQuote.h,
+                low: tempQuote.l,
+                currentPrice: tempQuote.c,
+                previousClose: tempQuote.pc
             });
-            // setProfile({
-            //     name: profile.name,
-            //     marketCapitalization: profile.marketCapitalization,
-            //     shareOutstanding: profile.shareOutstanding,
-            //     description: profile.description
-            // });
+            setProfile({
+                name: tempProfile.name,
+                marketCapitalization: (tempProfile.marketCapitalization * 1000000),
+                shareOutstanding: (tempProfile.shareOutstanding * 1000000),
+                description: tempProfile.description
+            });
         };
-        getQuoteData();
+        getData();
     }, []);
-
     async function callBuy(symbol, count, price) {
         let boughtData = await AuthAPIClass.buy(symbol, count, price)
         setResponse(boughtData);
-        console.log('start callbuy test');
-        console.log(boughtData.status);
-        console.log(boughtData.detail);
-        console.log(boughtData.currentCash);
-        console.log(boughtData.remaining);
-        console.log('end callbuy test');
-        setMessage(boughtData.detail);
     };
-
     async function callSell(symbol, count, price) {
         let soldData = await AuthAPIClass.sell(symbol, count, price)
         setResponse(soldData);
-        console.log('start callsell test');
-        console.log(soldData.status);
-        console.log(soldData.detail);
-        console.log(soldData.currentCash);
-        console.log(soldData.remaining);
-        console.log('end callsell test');
-        setMessage(soldData.detail);
     };
-
+    async function callAddToWatch(symbol) {
+        await AuthAPIClass.setWatch(symbol, true);
+        setResponse({
+            detail: "Added to watchlist"
+        })
+    }
     return (
-        <View>
+        <ScrollView>
+            <Text>Name: {profile.name}</Text>
             <Text>Symbol: {data}</Text>
+            <Text>
+                Market Capitalization:{' '}
+                <NumberFormat 
+                    value={profile.marketCapitalization} 
+                    displayType={'text'} 
+                    thousandSeparator={true}
+                    renderText={value => <Text>{value}</Text>}
+                />
+            </Text>
+            <Text>
+                Shares Outstanding:{' '}
+                <NumberFormat 
+                    value={profile.shareOutstanding} 
+                    displayType={'text'} 
+                    thousandSeparator={true}
+                    renderText={value => <Text>{value}</Text>}
+                />
+            </Text>
+            <Text>{profile.description}</Text>
             <Text>Current Price: ${price.currentPrice}</Text>
             <Text>Open Price: ${price.open}</Text>
             <Text>High Price: ${price.high}</Text>
             <Text>Low Price: ${price.low}</Text>
             <Text>Previous Close Price: ${price.previousClose}</Text>
             <TextInput 
-              onChangeText = {(text)=> setCountInput(text)}
-              value = {countInput}
-              keyboardType = {'numeric'}
+                placeholder = {"Enter quantity here"}
+                onChangeText = {(text)=> setCountInput(text)}
+                value = {countInput}
+                keyboardType = {'numeric'}
             />
-            <Text>TEST {countInput}</Text>
             <Button 
                 title="Buy"
                 onPress={() => callBuy(data, countInput, price.currentPrice)}
@@ -97,9 +104,15 @@ export default function DetailScreen({ navigation, route}) {
             />
             <Button 
                 title="Watch"
-                onPress={() => { console.log("Watch")}}
+                onPress={() => callAddToWatch(data)}
             />
-            <Text>{message}</Text>
-        </View>
+            <Text>{(response.detail != "") ? response.detail : "" }</Text>
+            <Text>
+                {(response.remaining != "" && response.remaining != null) ? "You have " + response.remaining + " stocks remaining." : (response.totalPurchased != "" && response.totalPurchased != null) ? "You currently have " + response.totalPurchased + " stocks purchased." : "" }
+            </Text>
+            <Text>
+                {(response.currentCash != "" && response.currentCash != null) ? "Your current cash amount is: $" + response.currentCash : "" }
+                </Text>
+        </ScrollView>
     );
 }
