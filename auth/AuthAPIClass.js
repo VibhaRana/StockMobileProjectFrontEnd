@@ -2,7 +2,7 @@ import axios from "axios"
 import { AsyncStorage } from 'react-native';
 
 var instance = axios.create({
-    baseURL: 'http://10.0.0.202:5000/'
+    baseURL: 'http://192.168.12.105:5000/'
 });
 
 const DataAccessService = {
