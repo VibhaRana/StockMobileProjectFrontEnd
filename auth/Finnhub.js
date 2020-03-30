@@ -39,7 +39,7 @@ const DataAccessService = {
         // data.map(e=> {return {name:(e.discription+"-"+e.symbol),symbol:e.symbol}})
         let output=[]
         data.forEach(e => {
-            output.push({name:(`(${e.symbol})${e.description}`),symbol:e.symbol})
+            output.push({name:(`(${e.symbol})${e.description}`),data:e.symbol})
         })
         console.log(output)
         return output

@@ -27,8 +27,8 @@ export default function SearchScreen({navigation}) {
   return (
     <View>
       <Text>Search Screen</Text>
-      <Button onPress={()=>{FinnhubAPI.getQuote("AAPL")}} title="search"></Button>
-      <Button onPress={()=>{navigation.navigate("Detail",{title:"yoho",data:"AAPL"})}} title="Navigate to detail"></Button>
+      
+      <View style={styles.autocompleteContainer}>
       <Autocomplete
         autoCapitalize="none"
         autoCorrect={false}
@@ -43,6 +43,7 @@ export default function SearchScreen({navigation}) {
           </TouchableOpacity>
         )}
       ></Autocomplete>
+      </View>
     </View>
   );
 }
@@ -54,7 +55,13 @@ const styles = StyleSheet.create({
   },
   autocompleteContainer: {
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    flex: 1,
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    zIndex: 1
   },
   itemText: {
     fontSize: 15,
