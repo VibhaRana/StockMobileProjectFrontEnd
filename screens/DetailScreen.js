@@ -27,49 +27,42 @@ export default function DetailScreen({ navigation, route}) {
       totalPurchased: 0
     });
     useEffect(() => {
-        const getQuoteData = async () => {
-            const quote = await FinnhubAPI.getQuote(data);
-            //const profile = await FinnhubAPI.getProfile(data);
+        const getData = async () => {
+            const tempQuote = await FinnhubAPI.getQuote(data);
+            const tempProfile = await FinnhubAPI.getProfile(data);
             setPrice({
-                open: quote.o,
-                high: quote.h,
-                low: quote.l,
-                currentPrice: quote.c,
-                previousClose: quote.pc
+                open: tempQuote.o,
+                high: tempQuote.h,
+                low: tempQuote.l,
+                currentPrice: tempQuote.c,
+                previousClose: tempQuote.pc
             });
-            // setProfile({
-            //     name: profile.name,
-            //     marketCapitalization: profile.marketCapitalization,
-            //     shareOutstanding: profile.shareOutstanding,
-            //     description: profile.description
-            // });
+            setProfile({
+                name: tempProfile.name,
+                marketCapitalization: tempProfile.marketCapitalization,
+                shareOutstanding: tempProfile.shareOutstanding,
+                description: tempProfile.description
+            });
         };
-        getQuoteData();
+        getData();
     }, []);
     async function callBuy(symbol, count, price) {
         let boughtData = await AuthAPIClass.buy(symbol, count, price)
         setResponse(boughtData);
-        console.log('start callbuy test');
-        console.log(boughtData.status);
-        console.log(boughtData.detail);
-        console.log(boughtData.currentCash);
-        console.log(boughtData.totalPurchased);
-        console.log('end callbuy test');
+        console.log(profile);
     };
     async function callSell(symbol, count, price) {
         let soldData = await AuthAPIClass.sell(symbol, count, price)
         setResponse(soldData);
-        console.log('start callsell test');
-        console.log(soldData.status);
-        console.log(soldData.detail);
-        console.log(soldData.currentCash);
-        console.log(soldData.remaining);
-        console.log('end callsell test');
     };
     
     return (
         <View>
+            <Text>Name: {profile.name}</Text>
             <Text>Symbol: {data}</Text>
+            <Text>Market Capitalization: {profile.marketCapitalization}</Text>
+            <Text>Shares Outstanding: {profile.shareOutstanding}</Text>
+            <Text>{profile.description}</Text>  
             <Text>Current Price: ${price.currentPrice}</Text>
             <Text>Open Price: ${price.open}</Text>
             <Text>High Price: ${price.high}</Text>
