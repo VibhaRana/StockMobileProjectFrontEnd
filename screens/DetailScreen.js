@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, Text, Button, TextInput } from 'react-native';
 import FinnhubAPI from "../auth/Finnhub";
-import Autocomplete from 'react-native-autocomplete-input';
 import AuthAPIClass from '../auth/AuthAPIClass';
 import NumberFormat from 'react-number-format';
 
-export default function DetailScreen({ navigation, route}) {
+export default function DetailScreen({ route }) {
     const { data } = route.params
     const [countInput, setCountInput] = useState("");
     const [price, setPrice] = useState({
@@ -50,15 +49,19 @@ export default function DetailScreen({ navigation, route}) {
     async function callBuy(symbol, count, price) {
         let boughtData = await AuthAPIClass.buy(symbol, count, price)
         setResponse(boughtData);
-        console.log(profile);
     };
     async function callSell(symbol, count, price) {
         let soldData = await AuthAPIClass.sell(symbol, count, price)
         setResponse(soldData);
     };
-    
+    async function callAddToWatch(symbol) {
+        await AuthAPIClass.setWatch(symbol, true);
+        setResponse({
+            detail: "Added to watchlist"
+        })
+    }
     return (
-        <View>
+        <ScrollView>
             <Text>Name: {profile.name}</Text>
             <Text>Symbol: {data}</Text>
             <Text>
@@ -67,6 +70,7 @@ export default function DetailScreen({ navigation, route}) {
                     value={profile.marketCapitalization} 
                     displayType={'text'} 
                     thousandSeparator={true}
+                    renderText={value => <Text>{value}</Text>}
                 />
             </Text>
             <Text>
@@ -75,9 +79,10 @@ export default function DetailScreen({ navigation, route}) {
                     value={profile.shareOutstanding} 
                     displayType={'text'} 
                     thousandSeparator={true}
+                    renderText={value => <Text>{value}</Text>}
                 />
             </Text>
-            <Text>{profile.description}</Text>  
+            <Text>{profile.description}</Text>
             <Text>Current Price: ${price.currentPrice}</Text>
             <Text>Open Price: ${price.open}</Text>
             <Text>High Price: ${price.high}</Text>
@@ -99,12 +104,15 @@ export default function DetailScreen({ navigation, route}) {
             />
             <Button 
                 title="Watch"
-                onPress={() => { console.log("Watch")}}
+                onPress={() => callAddToWatch(data)}
             />
             <Text>{(response.detail != "") ? response.detail : "" }</Text>
-            <Text>{(response.remaining != "" && response.remaining != null) ? "You have " + response.remaining + " stocks remaining." : "" }</Text>
-            <Text>{(response.totalPurchased != "" && response.totalPurchased != null) ? "You currently have " + response.totalPurchased + " stocks purchased." : "" }</Text>
-            <Text>{(response.currentCash != "" && response.currentCash != null) ? "Your current cash amount is: $" + response.currentCash : "" }</Text>
-        </View>
+            <Text>
+                {(response.remaining != "" && response.remaining != null) ? "You have " + response.remaining + " stocks remaining." : (response.totalPurchased != "" && response.totalPurchased != null) ? "You currently have " + response.totalPurchased + " stocks purchased." : "" }
+            </Text>
+            <Text>
+                {(response.currentCash != "" && response.currentCash != null) ? "Your current cash amount is: $" + response.currentCash : "" }
+                </Text>
+        </ScrollView>
     );
 }
