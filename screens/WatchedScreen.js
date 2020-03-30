@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, Modal, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Button, Modal, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import AuthAPI from '../auth/AuthAPIClass';
 
 export default function WatchedScreen({ navigation }) {
@@ -42,7 +42,7 @@ export default function WatchedScreen({ navigation }) {
 
   return (
     watchlist.length > 0 ?
-      <View>
+      <SafeAreaView>
         <FlatList
           keyExtractor={item => item.symbol}
           data={watchlist}
@@ -73,7 +73,7 @@ export default function WatchedScreen({ navigation }) {
             </View>
           </View>
         </Modal>
-      </View> :
+      </SafeAreaView> :
       <View>
         <Text>No watchlist</Text>
       </View>
