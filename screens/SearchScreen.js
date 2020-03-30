@@ -27,6 +27,7 @@ export default function SearchScreen({ navigation }) {
   return (
     <SafeAreaView>
       <Text>Search Screen</Text>
+<<<<<<< HEAD
 
       <View style={styles.autocompleteContainer}>
         <Autocomplete
@@ -45,6 +46,26 @@ export default function SearchScreen({ navigation }) {
         ></Autocomplete>
       </View>
     </SafeAreaView>
+=======
+      
+      <View style={styles.autocompleteContainer}>
+      <Autocomplete
+        autoCapitalize="none"
+        autoCorrect={false}
+        defaultValue={""}
+        data={candidateFilms}
+        onChangeText={(text) => upDateCandidates(text )}
+        renderItem={({ item, i }) => (
+          <TouchableOpacity onPress={() =>navigation.navigate("Detail",item) }>
+            <Text style={styles.itemText}>
+              {item.name} 
+            </Text>
+          </TouchableOpacity>
+        )}
+      ></Autocomplete>
+      </View>
+    </View>
+>>>>>>> ea0fbd75a15b57a5c0db4286022ed697a4cef5c4
   );
 }
 const styles = StyleSheet.create({
@@ -55,7 +76,13 @@ const styles = StyleSheet.create({
   },
   autocompleteContainer: {
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    flex: 1,
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    zIndex: 1
   },
   itemText: {
     fontSize: 15,

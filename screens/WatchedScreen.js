@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { View, Text, FlatList, Button, Modal, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+=======
+import { View, Text, FlatList, Button, Modal, StyleSheet, TouchableOpacity } from 'react-native';
+>>>>>>> ea0fbd75a15b57a5c0db4286022ed697a4cef5c4
 import AuthAPI from '../auth/AuthAPIClass';
 
 export default function WatchedScreen({ navigation }) {
   const [watchlist, setWatchList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedStock, setSelectedStock] = useState({});
-  let update=0
+
   useEffect(() => {
     const _retrieveData = async () => {
       try {
@@ -42,16 +46,20 @@ export default function WatchedScreen({ navigation }) {
 
   return (
     watchlist.length > 0 ?
+<<<<<<< HEAD
       <SafeAreaView>
+=======
+      <View>
+>>>>>>> ea0fbd75a15b57a5c0db4286022ed697a4cef5c4
         <FlatList
           keyExtractor={item => item.symbol}
           data={watchlist}
           renderItem={({ item }) => {
             return (
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => navigation.navigate('Detail', { data: item.symbol })}>
                 <Text>{item.symbol}</Text>
-                <Button title="Remove" color="red" onPress={() => { setModalVisible(true); setSelectedStock(item); }} />
-              </View>
+                <Button title='Remove' color="red" onPress={() => { setModalVisible(true); setSelectedStock(item); }} />
+              </TouchableOpacity>
             );
           }} />
         <Modal

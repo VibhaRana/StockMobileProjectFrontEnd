@@ -2,7 +2,7 @@ import axios from "axios"
 import { AsyncStorage } from 'react-native';
 
 var instance = axios.create({
-    baseURL: 'http://10.0.0.202:5000/'
+    baseURL: 'http://192.168.1.100:5000/'
 });
 
 const DataAccessService = {
@@ -249,7 +249,25 @@ const DataAccessService = {
         } else {
             return { status: response.status, detail: response.data.detail };
         }
+    },
+    async getPurchases(){
+        let token = await AsyncStorage.getItem('userToken');
+        let response = await instance.get('api/purchased', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+         console.log(response)
+        if (response.status == 200) {
+            return { status: 200, stocks: response.data.stocks };
+        } else {
+            return { status: response.status, detail: response.data.detail };
+        }
     }
+    
+
 };
 
 export default DataAccessService;
