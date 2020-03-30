@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, Button, TextInput } from 'react-native';
+import { ScrollView, Text, Button, TextInput, SafeAreaView } from 'react-native';
 import FinnhubAPI from "../auth/Finnhub";
 import AuthAPIClass from '../auth/AuthAPIClass';
 import NumberFormat from 'react-number-format';
@@ -61,6 +61,7 @@ export default function DetailScreen({ route }) {
         })
     }
     return (
+        <SafeAreaView>
         <ScrollView>
             <Text>Name: {profile.name}</Text>
             <Text>Symbol: {data}</Text>
@@ -114,5 +115,6 @@ export default function DetailScreen({ route }) {
                 {(response.currentCash != "" && response.currentCash != null) ? "Your current cash amount is: $" + response.currentCash : "" }
                 </Text>
         </ScrollView>
+        </SafeAreaView>
     );
 }

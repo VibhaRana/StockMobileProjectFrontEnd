@@ -1,50 +1,50 @@
 import React from 'react';
-import { View, Text,Button,TouchableOpacity,StyleSheet } from 'react-native';
+import { View, Text, Button, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import FinnhubAPI from "../auth/Finnhub"
 import Autocomplete from 'react-native-autocomplete-input';
-export default function SearchScreen({navigation}) {
-  const [query,setQuery]  = React.useState("") 
-  const [stockData,setStocksData]= React.useState() 
-  const [candidateFilms,setCandidateFilms]=React.useState() 
-  React.useEffect(()=>{
-    const start =async()=>{
-      let candidate=await FinnhubAPI.getCandidate()
-    setStocksData(candidate)
+export default function SearchScreen({ navigation }) {
+  const [query, setQuery] = React.useState("")
+  const [stockData, setStocksData] = React.useState()
+  const [candidateFilms, setCandidateFilms] = React.useState()
+  React.useEffect(() => {
+    const start = async () => {
+      let candidate = await FinnhubAPI.getCandidate()
+      setStocksData(candidate)
     }
     start()
 
-  },[])
-  function findStock(userQuery){
+  }, [])
+  function findStock(userQuery) {
     if (userQuery === '') {
       return [];
     }
     const regex = new RegExp(`${userQuery.trim()}`, 'i');
-    return stockData.filter(stockData => stockData.name.search(regex) >= 0).slice(0,5);
+    return stockData.filter(stockData => stockData.name.search(regex) >= 0).slice(0, 5);
   }
-  function upDateCandidates(text){
+  function upDateCandidates(text) {
     setCandidateFilms(findStock(text))
   }
   return (
-    <View>
+    <SafeAreaView>
       <Text>Search Screen</Text>
-      
+
       <View style={styles.autocompleteContainer}>
-      <Autocomplete
-        autoCapitalize="none"
-        autoCorrect={false}
-        defaultValue={""}
-        data={candidateFilms}
-        onChangeText={(text) => upDateCandidates(text )}
-        renderItem={({ item, i }) => (
-          <TouchableOpacity onPress={() =>navigation.navigate("Detail",item) }>
-            <Text style={styles.itemText}>
-              {item.name} 
-            </Text>
-          </TouchableOpacity>
-        )}
-      ></Autocomplete>
+        <Autocomplete
+          autoCapitalize="none"
+          autoCorrect={false}
+          defaultValue={""}
+          data={candidateFilms}
+          onChangeText={(text) => upDateCandidates(text)}
+          renderItem={({ item, i }) => (
+            <TouchableOpacity onPress={() => navigation.navigate("Detail", item)}>
+              <Text style={styles.itemText}>
+                {item.name}
+              </Text>
+            </TouchableOpacity>
+          )}
+        ></Autocomplete>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
