@@ -1,34 +1,34 @@
 import * as React from 'react';
-import { AsyncStorage, TouchableOpacity, Text, TextInput, SafeAreaView, StyleSheet } from 'react-native';
-import {AuthContext} from "../auth/authContext"
+import { AsyncStorage, TouchableOpacity, Text, TextInput, View, StyleSheet, SafeAreaView } from 'react-native';
+import { AuthContext } from "../auth/authContext"
 import { getCurrentFrame } from 'expo/build/AR';
 
 export default function SignUpScreen() {
-    const [username, setUsername] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [comfirmPassword, setComfirmPassword] = React.useState('');
-    const { signIn, signUp } = React.useContext(AuthContext);
-  
-    return (
-      
-      <SafeAreaView style={styles.container}>
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [comfirmPassword, setComfirmPassword] = React.useState('');
+  const { signIn, signUp } = React.useContext(AuthContext);
+
+  return (
+
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Welcome to Best Brokers</Text>
-        <TextInput
+      <TextInput
         style={styles.input}
         underlineColorAndroid='rgba(0,0,0,0)'
-          placeholder="Username"
-          value={username}
-          onChangeText={setUsername}
-        />
-        <TextInput
+        placeholder="Username"
+        value={username}
+        onChangeText={setUsername}
+      />
+      <TextInput
         style={styles.input}
         underlineColorAndroid='rgba(0,0,0,0)'
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <TextInput
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+      <TextInput
         style={styles.input}
         underlineColorAndroid='rgba(0,0,0,0)'
           placeholder="Comfirm Password"
@@ -82,11 +82,27 @@ export default function SignUpScreen() {
        fontSize: 20,
        shadowColor: 'black',
        elevation: 5
-     }
-    
-    
-     
-
-
-
-   })
+     },
+  button: {
+    width: 300,
+    backgroundColor: '#fc5c65',
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingVertical: 12,
+    shadowColor: 'black'
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#ffffff',
+    marginVertical: 10,
+    textAlign: 'center'
+  },
+  title: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
+    shadowColor: 'black',
+    elevation: 5
+  }
+})

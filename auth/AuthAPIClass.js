@@ -1,17 +1,13 @@
 import axios from "axios"
 import { AsyncStorage } from 'react-native';
-
+// change the below url to your own URL
 var instance = axios.create({
     baseURL: 'http://192.168.12.106:5000/'
 });
 
 const DataAccessService = {
     async login(username, password) {
-        if (username == null || username.length < 3) {
-            console.log("using test account")
-            username= "a@a.com"
-            password= "P@ssw0rd!"
-        }
+
         var result = await instance.post('api/login', {
             "email": username,
             "password": password,
@@ -32,12 +28,7 @@ const DataAccessService = {
     },
     async SignUp(username, password, comfirmPassword) {
         console.log("Sign up!!!!")
-        if (username == null || username.length < 3) {
-            console.log("using test account")
-            username = "test1@test.com"
-            password = "P@ssw0rd"
-            comfirmPassword = "P@ssw0rd"
-        }
+       
         var result = await instance.post('api/register', {
             "email": username,
             "password": password,

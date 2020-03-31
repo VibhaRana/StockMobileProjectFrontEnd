@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, Button, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import FinnhubAPI from "../auth/Finnhub"
 import Autocomplete from 'react-native-autocomplete-input';
-
 export default function SearchScreen({ navigation }) {
   const [query, setQuery] = React.useState("")
   const [stockData, setStocksData] = React.useState()

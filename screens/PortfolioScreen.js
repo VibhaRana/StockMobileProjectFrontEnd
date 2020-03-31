@@ -73,6 +73,8 @@ export default function PortfolioScreen({ navigation }) {
         setData(tempData)
         console.log(data);
       }
+
+
     };
     const unsubscribe = navigation.addListener('focus', () => {
       _retrieveData();
@@ -82,65 +84,64 @@ export default function PortfolioScreen({ navigation }) {
 
   return (
     <SafeAreaView>
-      <View>
-        {hasPerformance ?
-          <LineChart
-            data={{
-              labels: label,
-              datasets: [
-                {
-                  data: data
-                }
-              ]
-            }}
-            width={Dimensions.get("window").width} // from react-native
-            height={220}
-            yAxisLabel="$"
-            yAxisSuffix=""
-            yAxisInterval={1} // optional, defaults to 1
-            chartConfig={{
-              backgroundColor: "#1e88e5",
-              backgroundGradientFrom: "#1e88e5",
-              backgroundGradientTo: "#ffa726",
-              decimalPlaces: 2, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              style: {
-                borderRadius: 16
-              },
-              propsForDots: {
-                r: "6",
-                strokeWidth: "2",
-                stroke: "#0d47a1"
+
+      {hasPerformance ?
+        <LineChart
+          data={{
+            labels: label,
+            datasets: [
+              {
+                data: data
               }
-            }}
-            bezier
-            style={{
-              marginVertical: 8,
-              borderRadius: 0
-            }}
-          /> : <Text>not enough data for graph</Text>}
-        <Text>Total Cash:{cash}</Text>
-        <Text>Total Stock Current Value:{stockPerformance}</Text>
-        <Text>Total Portfolio Value:{cash + stockPerformance}</Text>
-        <Button title="Sign out" onPress={signOut} />
-        <Button title="get" onPress={() => { AuthAPI.getPerformance() }} />
-        <Button title="post" onPress={() => { AuthAPI.postPerformance() }} />
-        <Button title="get purchase" onPress={() => { AuthAPI.getPurchases() }} />
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          data={purchased}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => navigation.navigate("Detail", { data: item.symbol })}>
-                  <Text>Symbol: {item.symbol}</Text>
-                  <Text>Count: {item.count}</Text>
-                </TouchableOpacity>
-              </View>
-            );
-          }} />
-      </View>
+            ]
+          }}
+          width={Dimensions.get("window").width} // from react-native
+          height={220}
+          yAxisLabel="$"
+          yAxisSuffix=""
+          yAxisInterval={1} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: "#1e88e5",
+            backgroundGradientFrom: "#1e88e5",
+            backgroundGradientTo: "#ffa726",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#0d47a1"
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 0
+          }}
+        /> : <Text>not enough data for graph</Text>}
+      <Text>Total Cash:{cash}</Text>
+      <Text>Total Stock Current Value:{stockPerformance}</Text>
+      <Text>Total Portfolio Value:{cash + stockPerformance}</Text>
+      <Button title="Sign out" onPress={signOut} />
+      <Button title="get" onPress={() => { AuthAPI.getPerformance() }} />
+      <Button title="post" onPress={() => { AuthAPI.postPerformance() }} />
+      <Button title="get purchase" onPress={() => { AuthAPI.getPurchases() }} />
+      <FlatList
+        keyExtractor={item => item.symbol}
+        data={purchased}
+        renderItem={({ item }) => {
+          return (
+            <View>
+              <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => navigation.navigate("Detail", { data: item.symbol })}>
+                <Text>Symbol: {item.symbol}</Text>
+                <Text>Count: {item.count}</Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }} />
     </SafeAreaView>
     // <View>
     //   <LineChart
