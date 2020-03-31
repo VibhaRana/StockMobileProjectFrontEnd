@@ -13,13 +13,11 @@ export default function HomeScreen({ navigation, route }) {
     navigation.setOptions({ headerTitle: routeName });
 
     return (
-        <SafeAreaView>
-            <Tab.Navigator initialRouteName="Search">
-                <Tab.Screen name="Watchlist" component={WatchedScreen} options={{ tabBarIcon: () => <FontAwesome style={styles.icon} name="bookmark" /> }} />
-                <Tab.Screen name="Search" component={SearchScreen} options={{ tabBarIcon: () => <FontAwesome style={styles.icon} name="search" /> }} />
-                <Tab.Screen name="Portfolio" component={PortfolioScreen} options={{ tabBarIcon: () => <FontAwesome style={styles.icon} name="pie-chart" /> }} />
-            </Tab.Navigator>
-        </SafeAreaView>
+        <Tab.Navigator initialRouteName="Search">
+            <Tab.Screen name="Watchlist" component={WatchedScreen} options={{ tabBarIcon: () => <FontAwesome style={styles.icon} name="bookmark" /> }} />
+            <Tab.Screen name="Search" component={SearchScreen} options={{ tabBarIcon: () => <FontAwesome style={styles.icon} name="search" /> }} />
+            <Tab.Screen name="Portfolio" component={PortfolioScreen} options={{ tabBarIcon: () => <FontAwesome style={styles.icon} name="pie-chart" /> }} />
+        </Tab.Navigator>
     );
 }
 
