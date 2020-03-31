@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text,Button,TouchableOpacity,StyleSheet } from 'react-native';
+import { View, Text,Button,TouchableOpacity,StyleSheet, Image } from 'react-native';
 import FinnhubAPI from "../auth/Finnhub"
 import Autocomplete from 'react-native-autocomplete-input';
 export default function SearchScreen({navigation}) {
@@ -48,7 +48,16 @@ export default function SearchScreen({navigation}) {
         )}
       ></Autocomplete>
       </View>
+      <View style={styles.logoContainer}>
+    <Image
+       style={styles.logo}
+    source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQIbod4_O0wTfM_v5eBPmNcTli5Ds-8qICGzUGoqlj73mZIh_uu' }} />
     </View>
+    </View>
+
+
+
+     
   );
 }
 
@@ -98,5 +107,18 @@ const styles = StyleSheet.create({
   },
   openingText: {
     textAlign: 'center'
-  }
+  },
+  logoContainer: {
+    alignItems: 'center',
+    flexGrow: 1,
+    justifyContent: 'center',
+    backgroundColor: 'black'
+},
+logo: {
+  alignContent: 'center',
+  padding: 40,
+  width: 200,
+  height: 200,
+ 
+},
 });
