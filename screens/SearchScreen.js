@@ -25,12 +25,16 @@ export default function SearchScreen({navigation}) {
     setCandidateFilms(findStock(text))
   }
   return (
-    <View>
+    
+    <View style={styles.container}>
       <Text>Search Screen</Text>
+      
+      
       
       <View style={styles.autocompleteContainer}>
       <Autocomplete
         autoCapitalize="none"
+        backgroundColor="#ff7675"
         autoCorrect={false}
         defaultValue={""}
         data={candidateFilms}
@@ -47,6 +51,9 @@ export default function SearchScreen({navigation}) {
     </View>
   );
 }
+
+
+        
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F5FCFF',
