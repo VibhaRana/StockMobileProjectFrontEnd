@@ -37,7 +37,6 @@ export default function PortfolioScreen({ navigation }) {
       console.log(result.performance)
 
 
-      if (result.data.startDate && result.data.performance) {
 
         let tempLabel = []
         let tempData = result.data.performance.split(",").map(x => +x)
