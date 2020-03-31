@@ -59,6 +59,6 @@ Follow the instructions from the terminal to preview the app on your phone or us
 
 ### 5.Addtional Information
 
--sample account
--username:a@a.com
--password:P@ssw0rd!
+- sample account
+- username:a@a.com
+- password:P@ssw0rd!
