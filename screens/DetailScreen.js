@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, Button, TextInput, SafeAreaView } from 'react-native';
+import { ScrollView, Text, Button, TextInput, StyleSheet, View, SafeAreaView } from 'react-native';
+
 import FinnhubAPI from "../auth/Finnhub";
 import AuthAPIClass from '../auth/AuthAPIClass';
 import NumberFormat from 'react-number-format';
@@ -61,11 +62,13 @@ export default function DetailScreen({ route }) {
         })
     }
     return (
-        <SafeAreaView>
+
+        <SafeAreaView style={styles.container}>
+
         <ScrollView>
-            <Text>Name: {profile.name}</Text>
-            <Text>Symbol: {data}</Text>
-            <Text>
+            <Text style={styles.heading}>Name: {profile.name}</Text>
+            <Text style={styles.symbol}>Symbol: {data}</Text>
+            <Text style={styles.text}>
                 Market Capitalization:{' '}
                 <NumberFormat 
                     value={profile.marketCapitalization} 
@@ -74,7 +77,7 @@ export default function DetailScreen({ route }) {
                     renderText={value => <Text>{value}</Text>}
                 />
             </Text>
-            <Text>
+            <Text style={styles.text}>
                 Shares Outstanding:{' '}
                 <NumberFormat 
                     value={profile.shareOutstanding} 
@@ -83,30 +86,38 @@ export default function DetailScreen({ route }) {
                     renderText={value => <Text>{value}</Text>}
                 />
             </Text>
-            <Text>{profile.description}</Text>
-            <Text>Current Price: ${price.currentPrice}</Text>
-            <Text>Open Price: ${price.open}</Text>
-            <Text>High Price: ${price.high}</Text>
-            <Text>Low Price: ${price.low}</Text>
-            <Text>Previous Close Price: ${price.previousClose}</Text>
-            <TextInput 
+            <Text style={styles.text}>{profile.description}</Text>
+            <Text style={styles.text}>Current Price: ${price.currentPrice}</Text>
+            <Text style={styles.text}>Open Price: ${price.open}</Text>
+            <Text style={styles.text}>High Price: ${price.high}</Text>
+            <Text style={styles.text}>Low Price: ${price.low}</Text>
+            <Text style={styles.text}>Previous Close Price: ${price.previousClose}</Text>
+
+   
+            <TextInput
+                style={styles.input}
+                underlineColorAndroid='rgba(0,0,0,0)'
                 placeholder = {"Enter quantity here"}
                 onChangeText = {(text)=> setCountInput(text)}
                 value = {countInput}
                 keyboardType = {'numeric'}
             />
-            <Button 
+            <Button style={styles.button}
                 title="Buy"
                 onPress={() => callBuy(data, countInput, price.currentPrice)}
+                
             />
-            <Button 
+            <Button style={styles.button}
                 title="Sell"
                 onPress={() => callSell(data, countInput, price.currentPrice)}
             />
-            <Button 
+            <Button style={styles.button}
                 title="Watch"
                 onPress={() => callAddToWatch(data)}
             />
+            
+
+
             <Text>{(response.detail != "") ? response.detail : "" }</Text>
             <Text>
                 {(response.remaining != "" && response.remaining != null) ? "You have " + response.remaining + " stocks remaining." : (response.totalPurchased != "" && response.totalPurchased != null) ? "You currently have " + response.totalPurchased + " stocks purchased." : "" }
@@ -115,6 +126,55 @@ export default function DetailScreen({ route }) {
                 {(response.currentCash != "" && response.currentCash != null) ? "Your current cash amount is: $" + response.currentCash : "" }
                 </Text>
         </ScrollView>
+
         </SafeAreaView>
+
     );
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#009688',
+        flex: 1,
+        alignItems: 'center',
+        textAlign: 'left',
+        padding: 20
+        
+      
+      },
+    
+    button: {
+      width:200,
+      backgroundColor: '#fc5c65',
+      borderRadius: 25,
+      marginVertical: 10,
+      paddingVertical: 12,
+      shadowColor: 'black',
+      alignContent: "space-around"
+    },
+    input:{
+        width: 300,
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        borderRadius: 25,
+        paddingHorizontal: 19,
+        paddingVertical: 12,
+        marginVertical: 10,
+        
+      },
+      heading : {
+          fontWeight: 'bold',
+          fontSize: 18,
+          color: 'white'
+      },
+      symbol: {
+       fontWeight : 'bold',
+       fontSize: 16,
+       color: 'white'
+
+      }, text : {
+          color:'white',
+          lineHeight: 20
+      }
+
+})

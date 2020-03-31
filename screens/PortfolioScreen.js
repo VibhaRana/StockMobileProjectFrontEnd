@@ -1,5 +1,7 @@
 import React from 'react';
-import { AsyncStorage, View, Text, Button, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
+
+import { AsyncStorage, View, Text, Button,FlatList,TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+
 import { AuthContext } from "../auth/authContext";
 import AuthAPI from "../auth/AuthAPIClass";
 import FinnhubAPI from "../auth/Finnhub"
@@ -26,6 +28,11 @@ export default function PortfolioScreen({ navigation }) {
     const _retrieveData = async () => {
       let result = await AuthAPI.getPerformance()
       console.log("Result")
+
+        
+        
+      if(result.data&&result.data.startDate&&result.data.performance){
+
 
       console.log(result.performance)
 
@@ -83,79 +90,128 @@ export default function PortfolioScreen({ navigation }) {
   }, [navigation]);
 
   return (
+
     <SafeAreaView>
 
-      {hasPerformance ?
-        <LineChart
-          data={{
-            labels: label,
-            datasets: [
-              {
-                data: data
-              }
-            ]
-          }}
-          width={Dimensions.get("window").width} // from react-native
-          height={220}
-          yAxisLabel="$"
-          yAxisSuffix=""
-          yAxisInterval={1} // optional, defaults to 1
-          chartConfig={{
-            backgroundColor: "#1e88e5",
-            backgroundGradientFrom: "#1e88e5",
-            backgroundGradientTo: "#ffa726",
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16
-            },
-            propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "#0d47a1"
+         <View style={styles.container}>
+     
+      {hasPerformance?
+      <LineChart
+        data={{
+          labels:label,
+          datasets: [
+            {
+              data:data
             }
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 0
-          }}
-        /> : <Text>not enough data for graph</Text>}
-      <Text>Total Cash:{cash}</Text>
-      <Text>Total Stock Current Value:{stockPerformance}</Text>
-      <Text>Total Portfolio Value:{cash + stockPerformance}</Text>
-      <Button title="Sign out" onPress={signOut} />
-      <Button title="get" onPress={() => { AuthAPI.getPerformance() }} />
-      <Button title="post" onPress={() => { AuthAPI.postPerformance() }} />
-      <Button title="get purchase" onPress={() => { AuthAPI.getPurchases() }} />
-      <FlatList
-        keyExtractor={item => item.symbol}
-        data={purchased}
-        renderItem={({ item }) => {
-          return (
-            <View>
-              <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => navigation.navigate("Detail", { data: item.symbol })}>
-                <Text>Symbol: {item.symbol}</Text>
-                <Text>Count: {item.count}</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        }} />
+          ]
+        }}
+        width={Dimensions.get("window").width} // from react-native
+        height={220}
+        yAxisLabel="$"
+        yAxisSuffix=""
+        yAxisInterval={1} // optional, defaults to 1
+        chartConfig={{
+          backgroundColor: "#1e88e5",
+          backgroundGradientFrom: "#1e88e5",
+          backgroundGradientTo: "#ffa726",
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          style: {
+            borderRadius: 16
+          },
+          propsForDots: {
+            r: "6",
+            strokeWidth: "2",
+            stroke: "#0d47a1"
+          }
+        }}
+        bezier
+        style={{
+          marginVertical: 8,
+          borderRadius: 0
+        }}
+      
+      />:<Text>not enough data for graph</Text>}
+     
+     <Text style={styles.text}>Total Cash:{cash}</Text>
+     <Text style={styles.text} >Total Stock Current Value:{stockPerformance}</Text>
+     <Text style={styles.text}>Total Portfolio Value:{cash+stockPerformance}</Text>
+    <Button style={styles.button} title="Sign out" onPress={signOut} />
+   
+  
+     
+
+    
+    
+     <FlatList
+          keyExtractor={item => item.symbol}
+          data={purchased}
+          renderItem={({ item }) => {
+            return (
+              <View>
+                <TouchableOpacity  style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() =>navigation.navigate("Detail",{data:item.symbol}) }>
+                <Text style={styles.textContentOne}>Symbol: {item.symbol}</Text>
+                <Text style={styles.textContentTwo}>Count: {item.count}</Text>
+                </TouchableOpacity>
+
+
+
+                
+              </View>
+            );
+          }} />
+    </View>
     </SafeAreaView>
-    // <View>
-    //   <LineChart
-    //     data={data}
-    //     width={screenWidth}
-    //     height={256}
-    //     verticalLabelRotation={30}
-    //     chartConfig={chartConfig}
-    //     bezier
-    //   />
-    //   <Text>Signed in! YO: {token}</Text>
-    //   <Button title="Sign out" onPress={signOut} />
-    //   <Button title="get" onPress={() => { AuthAPI.getPerformance() }} />
-    //   <Button title="post" onPress={() => { AuthAPI.postPerformance() }} />
-    // </View>
+
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#009688',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    
+  
+  },
+  button: {
+    width:300,
+    backgroundColor: '#fc5c65',
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingVertical: 12,
+    shadowColor: 'black',
+    alignContent: "space-around"
+  },
+  text : {
+    fontSize: 14,
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: 50,
+  },
+  textContentOne:{
+    padding: 30,
+    marginLeft: 0,
+    marginBottom: 0,
+     
+     fontWeight: 'bold',
+     fontSize: 20,
+     color: 'white',
+     
+  },
+  textContentTwo:{
+    padding: 30,
+    marginRight: 0,
+    marginBottom: 0,
+    
+     fontWeight: 'bold',
+     fontSize: 20,
+     color: 'white',
+    
+  }
+   
+    
+    
+  
+})

@@ -2,7 +2,7 @@ import axios from "axios"
 import { AsyncStorage } from 'react-native';
 // change the below url to your own URL
 var instance = axios.create({
-    baseURL: 'http://192.168.1.100:5000/'
+    baseURL: 'http://10.0.0.217:5000/'
 });
 
 const DataAccessService = {
@@ -28,7 +28,7 @@ const DataAccessService = {
     },
     async SignUp(username, password, comfirmPassword) {
         console.log("Sign up!!!!")
-       
+
         var result = await instance.post('api/register', {
             "email": username,
             "password": password,

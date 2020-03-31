@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, Button, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+
+import { View, Text,Button,TouchableOpacity,StyleSheet, Image, SafeAreaView } from 'react-native';
+
 import FinnhubAPI from "../auth/Finnhub"
 import Autocomplete from 'react-native-autocomplete-input';
 export default function SearchScreen({ navigation }) {
@@ -25,28 +27,44 @@ export default function SearchScreen({ navigation }) {
     setCandidateFilms(findStock(text))
   }
   return (
-    <SafeAreaView>
-      <Text>Search Screen</Text>
 
+    <SafeAreaView>
+      <View style={styles.container}>
+      <Text>Search Screen</Text>
+      
+      
+      
       <View style={styles.autocompleteContainer}>
-        <Autocomplete
-          autoCapitalize="none"
-          autoCorrect={false}
-          defaultValue={""}
-          data={candidateFilms}
-          onChangeText={(text) => upDateCandidates(text)}
-          renderItem={({ item, i }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("Detail", item)}>
-              <Text style={styles.itemText}>
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          )}
-        ></Autocomplete>
+      <Autocomplete
+        autoCapitalize="none"
+        backgroundColor="#ff7675"
+        autoCorrect={false}
+        defaultValue={""}
+        data={candidateFilms}
+        onChangeText={(text) => upDateCandidates(text )}
+        renderItem={({ item, i }) => (
+          <TouchableOpacity onPress={() =>navigation.navigate("Detail",item) }>
+            <Text style={styles.itemText}>
+              {item.name} 
+            </Text>
+          </TouchableOpacity>
+        )}
+      ></Autocomplete>
       </View>
+      <View style={styles.logoContainer}>
+    <Image
+       style={styles.logo}
+    source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQIbod4_O0wTfM_v5eBPmNcTli5Ds-8qICGzUGoqlj73mZIh_uu' }} />
+    </View>
+    <Text style={styles.text}>Search</Text>
+    </View>
     </SafeAreaView>
+
   );
 }
+
+
+        
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F5FCFF',
@@ -91,5 +109,20 @@ const styles = StyleSheet.create({
   },
   openingText: {
     textAlign: 'center'
-  }
+  },
+  logoContainer: {
+    alignItems: 'center',
+    flexGrow: 1,
+    justifyContent: 'center',
+    backgroundColor: '#009688'
+    
+},
+logo: {
+  alignContent: 'center',
+  padding: 40,
+  width: 200,
+  height: 200,
+ 
+},
+
 });
