@@ -56,3 +56,9 @@ npm start
 ```
 
 Follow the instructions from the terminal to preview the app on your phone or using an emulator.
+
+### 5.Addtional Information
+
+sample account
+username:a@a.com
+password:P@ssw0rd!
