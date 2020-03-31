@@ -63,7 +63,7 @@ export default function DetailScreen({ route }) {
     }
     return (
 
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
 
         <ScrollView>
             <Text style={styles.heading}>Name: {profile.name}</Text>
@@ -127,7 +127,7 @@ export default function DetailScreen({ route }) {
                 </Text>
         </ScrollView>
 
-        </SafeAreaView>
+        </View>
 
     );
 }
