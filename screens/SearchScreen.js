@@ -28,9 +28,9 @@ export default function SearchScreen({ navigation }) {
   }
   return (
 
-    <SafeAreaView>
+
       <View style={styles.container}>
-      <Text>Search Screen</Text>
+     
       
       
       
@@ -56,9 +56,9 @@ export default function SearchScreen({ navigation }) {
        style={styles.logo}
     source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQIbod4_O0wTfM_v5eBPmNcTli5Ds-8qICGzUGoqlj73mZIh_uu' }} />
     </View>
-    <Text style={styles.text}>Search</Text>
+  
     </View>
-    </SafeAreaView>
+
 
   );
 }
