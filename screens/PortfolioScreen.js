@@ -90,7 +90,6 @@ export default function PortfolioScreen({ navigation }) {
 
   return (
 
-    <SafeAreaView>
 
          <View style={styles.container}>
      
@@ -161,7 +160,7 @@ export default function PortfolioScreen({ navigation }) {
             );
           }} />
     </View>
-    </SafeAreaView>
+
 
   );
 }
