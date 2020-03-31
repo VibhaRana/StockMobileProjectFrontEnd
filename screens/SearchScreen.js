@@ -26,24 +26,22 @@ export default function SearchScreen({ navigation }) {
     setCandidateFilms(findStock(text))
   }
   return (
-    <SafeAreaView>
-      <View style={styles.autocompleteContainer}>
-        <Autocomplete
-          keyExtractor={(item, index) => index.toString()}
-          autoCapitalize="none"
-          autoCorrect={false}
-          defaultValue={""}
-          data={candidateFilms}
-          onChangeText={(text) => upDateCandidates(text)}
-          renderItem={({ item, i }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("Detail", item)}>
-              <Text style={styles.itemText}>
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          )}
-        ></Autocomplete>
-      </View>
+    <SafeAreaView style={styles.autocompleteContainer}>
+      <Autocomplete
+        keyExtractor={(item, index) => index.toString()}
+        autoCapitalize="none"
+        autoCorrect={false}
+        defaultValue={""}
+        data={candidateFilms}
+        onChangeText={(text) => upDateCandidates(text)}
+        renderItem={({ item, i }) => (
+          <TouchableOpacity onPress={() => navigation.navigate("Detail", item)}>
+            <Text style={styles.itemText}>
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        )}
+      ></Autocomplete>
     </SafeAreaView>
   );
 }

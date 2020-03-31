@@ -41,46 +41,42 @@ export default function WatchedScreen({ navigation }) {
   }
 
   return (
-
-    <SafeAreaView>
-      {watchlist.length > 0 ?
-        <View>
-          <FlatList
-            keyExtractor={(item, index) => index.toString()}
-            data={watchlist}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => navigation.navigate('Detail', { data: item.symbol })}>
-                  <Text>{item.symbol}</Text>
-                  <Button title='Remove' color="red" onPress={() => { setModalVisible(true); setSelectedStock(item); }} />
-                </TouchableOpacity>
-              );
-            }} />
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(false);
-              setSelectedStock({});
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text>Unwatch {selectedStock.symbol}?</Text>
-                <View style={{ flexDirection: 'row' }}>
-                  <Button title="Confirm" color="red" onPress={() => { setModalVisible(false); unWatch(selectedStock.symbol) }} />
-                  <Button title="Cancel" color="grey" onPress={() => { setModalVisible(false); setSelectedStock({}); }} />
-                </View>
+    watchlist.length > 0 ?
+      <SafeAreaView>
+        <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          data={watchlist}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => navigation.navigate('Detail', { data: item.symbol })}>
+                <Text>{item.symbol}</Text>
+                <Button title='Remove' color="red" onPress={() => { setModalVisible(true); setSelectedStock(item); }} />
+              </TouchableOpacity>
+            );
+          }} />
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(false);
+            setSelectedStock({});
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text>Unwatch {selectedStock.symbol}?</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Button title="Confirm" color="red" onPress={() => { setModalVisible(false); unWatch(selectedStock.symbol) }} />
+                <Button title="Cancel" color="grey" onPress={() => { setModalVisible(false); setSelectedStock({}); }} />
               </View>
             </View>
-          </Modal>
-        </View> :
-        <View>
-          <Text>No watchlist</Text>
-        </View>
-      }
-    </SafeAreaView>
+          </View>
+        </Modal>
+      </SafeAreaView> :
+      <SafeAreaView>
+        <Text>No watchlist</Text>
+      </SafeAreaView>
   );
 }
 

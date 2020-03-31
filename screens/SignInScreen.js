@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AsyncStorage,  Button, Text, TextInput, View, StyleSheet, Image } from 'react-native';
+import { AsyncStorage,  Button, Text, TextInput, View, StyleSheet, Image, SafeAreaView } from 'react-native';
 import { AuthContext } from "../auth/authContext";
 
 export default function SignInScreen({ navigation }) {
@@ -8,7 +8,7 @@ export default function SignInScreen({ navigation }) {
     const { signIn, signUp } = React.useContext(AuthContext);
     
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
         <View >
             <View style={styles.logoContainer}>
                 <Image
@@ -37,7 +37,7 @@ export default function SignInScreen({ navigation }) {
             <Button title="Click here to register" onPress={() =>navigation.navigate("SignUp")} />
             
         </View>
-        </View>
+        </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({

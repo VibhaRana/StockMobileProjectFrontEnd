@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AsyncStorage, TouchableOpacity, Text, TextInput, View, StyleSheet } from 'react-native';
+import { AsyncStorage, TouchableOpacity, Text, TextInput, SafeAreaView, StyleSheet } from 'react-native';
 import {AuthContext} from "../auth/authContext"
 import { getCurrentFrame } from 'expo/build/AR';
 
@@ -11,7 +11,7 @@ export default function SignUpScreen() {
   
     return (
       
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Welcome to Best Brokers</Text>
         <TextInput
         style={styles.input}
@@ -40,7 +40,7 @@ export default function SignUpScreen() {
          <TouchableOpacity style={styles.button}>
          <Text style={styles.buttonText}>SignUp</Text>
          </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     );
   }
    const styles = StyleSheet.create({
