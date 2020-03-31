@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AsyncStorage, TouchableOpacity, Text, TextInput, View, StyleSheet, SafeAreaView } from 'react-native';
+import { AsyncStorage, TouchableOpacity, Text, TextInput, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { AuthContext } from "../auth/authContext"
 import { getCurrentFrame } from 'expo/build/AR';
 
@@ -10,36 +10,37 @@ export default function SignUpScreen() {
   const { signIn, signUp } = React.useContext(AuthContext);
 
   return (
-
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Welcome to Best Brokers</Text>
-      <TextInput
-        style={styles.input}
-        underlineColorAndroid='rgba(0,0,0,0)'
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
-        underlineColorAndroid='rgba(0,0,0,0)'
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TextInput
-        style={styles.input}
-        underlineColorAndroid='rgba(0,0,0,0)'
-        placeholder="Comfirm Password"
-        value={comfirmPassword}
-        onChangeText={setComfirmPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity title="Sign up" onPress={() => signUp({ username, password, comfirmPassword })} />
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>SignUp</Text>
-      </TouchableOpacity>
+      <ScrollView>
+        <Text style={styles.title}>Welcome to Best Brokers</Text>
+        <TextInput
+          style={styles.input}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <TextInput
+          style={styles.input}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <TextInput
+          style={styles.input}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          placeholder="Comfirm Password"
+          value={comfirmPassword}
+          onChangeText={setComfirmPassword}
+          secureTextEntry
+        />
+        <TouchableOpacity title="Sign up" onPress={() => signUp({ username, password, comfirmPassword })} />
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>SignUp</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 }

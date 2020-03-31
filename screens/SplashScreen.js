@@ -1,14 +1,16 @@
 import * as React from 'react';
 
 // import { withNavigation } from 'react-navigation';
-import { AsyncStorage, Button, Text, StyleSheet, TextInput, View, SafeAreaView } from 'react-native';
+import { AsyncStorage, Button, Text, StyleSheet, TextInput, View, SafeAreaView, ScrollView } from 'react-native';
 export default function SplashScreen() {
   return (
     <SafeAreaView style={styles.wrapper}>
-      <View>
-        <Text style={styles.title}>Best Brokers</Text>
-      </View>
-      <Text style={styles.subtitle}>Learn about stock market</Text>
+      <ScrollView>
+        <View>
+          <Text style={styles.title}>Best Brokers</Text>
+        </View>
+        <Text style={styles.subtitle}>Learn about stock market</Text>
+      </ScrollView>
     </SafeAreaView>
   );
 }

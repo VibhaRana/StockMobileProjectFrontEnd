@@ -134,12 +134,10 @@ export default function PortfolioScreen({ navigation }) {
         data={purchased}
         renderItem={({ item }) => {
           return (
-            <View>
               <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between' }} onPress={() => navigation.navigate("Detail", { data: item.symbol })}>
                 <Text>Symbol: {item.symbol}</Text>
                 <Text>Count: {item.count}</Text>
               </TouchableOpacity>
-            </View>
           );
         }} />
     </SafeAreaView>
