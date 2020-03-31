@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, Button, TextInput } from 'react-native';
+import { ScrollView, Text, Button, TextInput, SafeAreaView } from 'react-native';
 import FinnhubAPI from "../auth/Finnhub";
 import AuthAPIClass from '../auth/AuthAPIClass';
 import NumberFormat from 'react-number-format';
@@ -21,10 +21,10 @@ export default function DetailScreen({ route }) {
         description: ""
     });
     const [response, setResponse] = useState({
-      detail: "",
-      currentCash: "",
-      remaining: 0,
-      totalPurchased: 0
+        detail: "",
+        currentCash: "",
+        remaining: 0,
+        totalPurchased: 0
     });
     useEffect(() => {
         const getData = async () => {
@@ -61,58 +61,60 @@ export default function DetailScreen({ route }) {
         })
     }
     return (
-        <ScrollView>
-            <Text>Name: {profile.name}</Text>
-            <Text>Symbol: {data}</Text>
-            <Text>
-                Market Capitalization:{' '}
-                <NumberFormat 
-                    value={profile.marketCapitalization} 
-                    displayType={'text'} 
-                    thousandSeparator={true}
-                    renderText={value => <Text>{value}</Text>}
-                />
-            </Text>
-            <Text>
-                Shares Outstanding:{' '}
-                <NumberFormat 
-                    value={profile.shareOutstanding} 
-                    displayType={'text'} 
-                    thousandSeparator={true}
-                    renderText={value => <Text>{value}</Text>}
-                />
-            </Text>
-            <Text>{profile.description}</Text>
-            <Text>Current Price: ${price.currentPrice}</Text>
-            <Text>Open Price: ${price.open}</Text>
-            <Text>High Price: ${price.high}</Text>
-            <Text>Low Price: ${price.low}</Text>
-            <Text>Previous Close Price: ${price.previousClose}</Text>
-            <TextInput 
-                placeholder = {"Enter quantity here"}
-                onChangeText = {(text)=> setCountInput(text)}
-                value = {countInput}
-                keyboardType = {'numeric'}
-            />
-            <Button 
-                title="Buy"
-                onPress={() => callBuy(data, countInput, price.currentPrice)}
-            />
-            <Button 
-                title="Sell"
-                onPress={() => callSell(data, countInput, price.currentPrice)}
-            />
-            <Button 
-                title="Watch"
-                onPress={() => callAddToWatch(data)}
-            />
-            <Text>{(response.detail != "") ? response.detail : "" }</Text>
-            <Text>
-                {(response.remaining != "" && response.remaining != null) ? "You have " + response.remaining + " stocks remaining." : (response.totalPurchased != "" && response.totalPurchased != null) ? "You currently have " + response.totalPurchased + " stocks purchased." : "" }
-            </Text>
-            <Text>
-                {(response.currentCash != "" && response.currentCash != null) ? "Your current cash amount is: $" + response.currentCash : "" }
+        <SafeAreaView>
+            <ScrollView>
+                <Text>Name: {profile.name}</Text>
+                <Text>Symbol: {data}</Text>
+                <Text>
+                    Market Capitalization:{' '}
+                    <NumberFormat
+                        value={profile.marketCapitalization}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        renderText={value => <Text>{value}</Text>}
+                    />
                 </Text>
-        </ScrollView>
+                <Text>
+                    Shares Outstanding:{' '}
+                    <NumberFormat
+                        value={profile.shareOutstanding}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        renderText={value => <Text>{value}</Text>}
+                    />
+                </Text>
+                <Text>{profile.description}</Text>
+                <Text>Current Price: ${price.currentPrice}</Text>
+                <Text>Open Price: ${price.open}</Text>
+                <Text>High Price: ${price.high}</Text>
+                <Text>Low Price: ${price.low}</Text>
+                <Text>Previous Close Price: ${price.previousClose}</Text>
+                <TextInput
+                    placeholder={"Enter quantity here"}
+                    onChangeText={(text) => setCountInput(text)}
+                    value={countInput}
+                    keyboardType={'numeric'}
+                />
+                <Button
+                    title="Buy"
+                    onPress={() => callBuy(data, countInput, price.currentPrice)}
+                />
+                <Button
+                    title="Sell"
+                    onPress={() => callSell(data, countInput, price.currentPrice)}
+                />
+                <Button
+                    title="Watch"
+                    onPress={() => callAddToWatch(data)}
+                />
+                <Text>{(response.detail != "") ? response.detail : ""}</Text>
+                <Text>
+                    {(response.remaining != "" && response.remaining != null) ? "You have " + response.remaining + " stocks remaining." : (response.totalPurchased != "" && response.totalPurchased != null) ? "You currently have " + response.totalPurchased + " stocks purchased." : ""}
+                </Text>
+                <Text>
+                    {(response.currentCash != "" && response.currentCash != null) ? "Your current cash amount is: $" + response.currentCash : ""}
+                </Text>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
