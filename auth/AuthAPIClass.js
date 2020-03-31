@@ -2,7 +2,7 @@ import axios from "axios"
 import { AsyncStorage } from 'react-native';
 
 var instance = axios.create({
-    baseURL: 'http://192.168.1.100:5000/'
+    baseURL: 'http://10.0.0.217:5000/'
 });
 
 const DataAccessService = {
@@ -34,7 +34,7 @@ const DataAccessService = {
         console.log("Sign up!!!!")
         if (username == null || username.length < 3) {
             console.log("using test account")
-            username = "test1@test.com"
+            username= "a@a.com"
             password = "P@ssw0rd"
             comfirmPassword = "P@ssw0rd"
         }

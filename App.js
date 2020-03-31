@@ -149,7 +149,7 @@ export default function App({ navigation }) {
     }),
     []
   );
-
+ console.log("start app")
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
