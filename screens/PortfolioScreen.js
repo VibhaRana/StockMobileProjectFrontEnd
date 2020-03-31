@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     padding: 30,
     marginLeft: 0,
     marginBottom: 0,
-     alignItems: 'space-between',
+     
      fontWeight: 'bold',
      fontSize: 20,
      color: 'white',
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     padding: 30,
     marginRight: 0,
     marginBottom: 0,
-     alignItems: 'space-between',
+    
      fontWeight: 'bold',
      fontSize: 20,
      color: 'white',
